@@ -1,33 +1,30 @@
+.padding {
+  height: 30px;
+}
+
 .App {
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url("/images/background.png");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  color: black;
   text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  height: 1000px;
+  width:100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.splithr {
+  border: 0;
+  height: 1px;
+  width: 80%;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.15), red, rgba(255, 255, 255, 0.15));
+  position: relative;
+  margin: 0 auto;
 }
