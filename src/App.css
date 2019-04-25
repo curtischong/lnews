@@ -41,13 +41,7 @@ button:focus {
 .padding {
   height: 30px;
 }
-html{
-  height: 100%;
-}
-body{
-  height:100%;
-}
-#root{
+#root,body,html{
   height: 100%;
 }
 

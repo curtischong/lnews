@@ -3,7 +3,7 @@
   transition: 0.3s;
   border-radius: 5px;
   width: 400px;
-  background-color: #cbe8ed;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
   display: inline-block;
   margin: 10px;
   opacity: 1;

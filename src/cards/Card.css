@@ -7,11 +7,11 @@
 }
 
 .card {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
   border-radius: 5px;
   width: 500px;
-  background-color: #ffe5c6;
   display: inline-block;
 }
 

@@ -118,11 +118,11 @@ class App extends React.Component{
           {this.state.panels}
         </div>
         <div className="newsFeed">
-          {/*<CardLineGraph
+          <CardLineGraph
             title = "Heartrate"
             chartData = {this.state.cchartData}
             key="sd"
-          />*/}
+          />
           {this.state.cards}
         </div>
       </div>
