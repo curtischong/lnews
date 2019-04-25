@@ -57,15 +57,13 @@ a:focus {
   position: relative;
 }
 
-.panel{
-  opacity: 0.5;
+.panelFeed{
   position: absolute;
   z-index: 1;
   display: inline-block;
   height: 100%;
   width: 500px;
   right: 0px;
-  background-color: ;
   /*background-image:linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));*/
-  background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  background-image:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 }

@@ -1,0 +1,30 @@
+.panel{
+  box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 400px;
+  background-color: #ffe5c6;
+  display: inline-block;
+  margin: 10px;
+  opacity: 1;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.img--panel--small {
+  display: inline-block;
+  vertical-align: middle;
+  height: 50px;
+  width: 50px;
+  margin: 10px;
+}
+
+.panel__top{
+
+}
+
+.panel__header{
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px;
+}

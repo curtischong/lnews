@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 import {CardLineGraph, CardText, CardTextLink} from './cards/Card'
+import {PanelSurvey, PanelCheckbox} from './panels/Panel'
 import axios from 'axios';
 //TODO: move this to a config file
 const configFile = {
   "debug": 0,
-  "post_to_server": false
+  "post_to_server": true
 }
 
 class App extends React.Component{
@@ -24,7 +25,8 @@ class App extends React.Component{
           }
         ]
       },
-      cards: []
+      cards: [],
+      panels: []
     }
 
     /*
@@ -50,10 +52,11 @@ class App extends React.Component{
     .then(res => {
       let cards = res.data; 
       var newCards = this.state.cards.slice();
+      var newPanels = this.state.panels.slice();
 
       for(let i = 0; i < cards.length;i++){
         let card = cards[i];
-        if(card.cardType == "text"){
+        if(card.cardType === "text"){
           newCards.push(
             <CardText
             title={card.title}
@@ -62,7 +65,7 @@ class App extends React.Component{
             key={i + "food"}
             />
           )
-        }else if(card.cardType == "textLink"){
+        }else if(card.cardType === "textLink"){
           newCards.push(
             <CardTextLink
             title={card.title}
@@ -73,11 +76,29 @@ class App extends React.Component{
             key={i + "link"}
             />
           )
+
+
+        /* Panels */
+        }else if(card.cardType === "panelCheckbox"){
+          let checkboxes = []
+          for(let a = 0; a < card.checkboxItems.length;a++){
+            checkboxes.push(card.checkboxItems[a]);
+          }
+
+          newPanels.push(
+            <PanelCheckbox
+            title={card.title}
+            img ={card.img}
+            key={i + "checkbox"}
+            checkboxes={checkboxes}
+            />
+          )
         }
       }
 
       this.setState({
-        cards: newCards
+        cards: newCards,
+        panels: newPanels
       })
     });
   }
@@ -88,7 +109,9 @@ class App extends React.Component{
   render () {
     return (
       <div className="App">
-        <div className="panel"></div>
+        <div className="panelFeed">
+          {this.state.panels}
+        </div>
         <div className="newsFeed">
           <CardLineGraph
             title = "Heartrate"

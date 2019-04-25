@@ -1,0 +1,11 @@
+.element--checkbox__box{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.element--checkbox__title{
+  margin: 10px;
+  padding: 10px;
+}
