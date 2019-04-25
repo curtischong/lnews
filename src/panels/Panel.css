@@ -3,13 +3,22 @@
   transition: 0.3s;
   border-radius: 5px;
   width: 400px;
-  background-color: #ffe5c6;
+  background-color: #cbe8ed;
   display: inline-block;
   margin: 10px;
   opacity: 1;
   padding-top: 20px;
   padding-bottom: 30px;
 }
+
+.panel__listItem{
+  text-align: left;
+}
+
+.panel__btn--submit{
+ color: white;
+}
+
 
 .img--panel--small {
   display: inline-block;
@@ -27,4 +36,8 @@
   display: inline-block;
   vertical-align: middle;
   margin: 10px;
+}
+
+.panel__confirmElements{
+
 }

@@ -18,11 +18,36 @@ a:focus {
   outline: none;
 }
 
+button{
+  border: none;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  background-color: #16a356;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+}
+
+button:hover{
+  background-color: #0b6b7a !important;
+}
+
+button:focus {
+  outline: none;
+}
 .padding {
   height: 30px;
 }
-
-#root,html,body{
+html{
+  height: 100%;
+}
+body{
+  height:100%;
+}
+#root{
   height: 100%;
 }
 
@@ -34,7 +59,7 @@ a:focus {
   color: black;
   text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  height: 100%;
+  min-height: 100%;
 }
 
 .centered {
@@ -58,7 +83,7 @@ a:focus {
 }
 
 .panelFeed{
-  position: absolute;
+  position: fixed;
   z-index: 1;
   display: inline-block;
   height: 100%;

@@ -13,13 +13,13 @@ class PanelCheckbox extends React.Component{
   }
 
   componentDidUpdate(prevProps, prevState){
-    if(prevState.checkCount != this.state.checkCount){
+    if(prevState.checkCount !== this.state.checkCount){
       this.checkChecked();
     }
   }
 
   checkChecked(){
-    if(this.props.checkboxes.length == this.state.checkCount){
+    if(this.props.listItems.length === this.state.checkCount){
       console.log("all checked!");
     }
   }
@@ -37,10 +37,10 @@ class PanelCheckbox extends React.Component{
   }
   render () {
     let checkboxElements = [];
-    for(let i = 0 ; i < this.props.checkboxes.length;i++){
+    for(let i = 0 ; i < this.props.listItems.length;i++){
       checkboxElements.push(
         <Checkbox
-        title = {this.props.checkboxes[i]}
+        title = {this.props.listItems[i]}
         isChecked = {false}
         handleChecked = {this.handleChecked.bind(this)}
         handleUnchecked = {this.handleUnchecked.bind(this)}
@@ -59,6 +59,28 @@ class PanelCheckbox extends React.Component{
             {checkboxElements}
           </div>
         </div>
+      </div>
+    )
+  }
+};
+
+class PanelConfirm extends React.Component{
+  render () {
+    let confirmElements = [];
+    for(let i = 0 ; i < this.props.listItems.length;i++){
+      confirmElements.push(
+        <li className="panel__listItem" key={i + "panelConfirm"}>{this.props.listItems[i]}</li>
+      );
+    }
+
+    return(
+      <div className="panel">
+        <div className="panel__top">
+          <img className="img--panel--small" src={this.props.img} alt="images/thinking.png"></img>
+          <h3 className="panel__header">{this.props.title}</h3>
+        </div>
+        <ul className="panel__confirmElements">{confirmElements}</ul>
+        <button className="panel__btn--submit">{this.props.confirmMsg}</button>
       </div>
     )
   }
@@ -88,5 +110,6 @@ class PanelSurvey extends React.Component{
 
 export{
   PanelCheckbox,
-  PanelSurvey
+  PanelSurvey,
+  PanelConfirm
 }

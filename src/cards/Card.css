@@ -6,16 +6,13 @@
   margin: 10px;
 }
 
-
 .card {
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
   border-radius: 5px;
   width: 500px;
-  height: 500px;
   background-color: #ffe5c6;
   display: inline-block;
-  margin: 10px;
 }
 
 .card--lineGraph {
@@ -24,8 +21,6 @@
   border-radius: 5px;
   width: 800px;
   height: 500px;
-  background-color: #ffe5c6;
-  display: inline-block;
   margin: 20px;
   padding: 20px;
 }
@@ -36,8 +31,6 @@
   border-radius: 5px;
   width: 800px;
   height: 500px;
-  background-color: #ffe5c6;
-  display: inline-block;
   margin: 20px;
   padding: 20px;
 }
@@ -47,8 +40,6 @@
   transition: 0.3s;
   border-radius: 5px;
   width: 800px;
-  background-color: #ffe5c6;
-  display: inline-block;
   margin: 20px;
   padding: 20px;
 }
@@ -75,9 +66,6 @@
   transition: 0.3s;
   border-radius: 5px;
   height: 50px;
-  background-color: #ffe5c6;
-  display: inline-block;
-  margin: 10px;
   width: 50%;
 }
 

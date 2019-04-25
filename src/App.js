@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {CardLineGraph, CardText, CardTextLink} from './cards/Card'
-import {PanelSurvey, PanelCheckbox} from './panels/Panel'
+import {PanelSurvey, PanelCheckbox, PanelConfirm} from './panels/Panel'
 import axios from 'axios';
 //TODO: move this to a config file
 const configFile = {
@@ -80,17 +80,22 @@ class App extends React.Component{
 
         /* Panels */
         }else if(card.cardType === "panelCheckbox"){
-          let checkboxes = []
-          for(let a = 0; a < card.checkboxItems.length;a++){
-            checkboxes.push(card.checkboxItems[a]);
-          }
-
           newPanels.push(
             <PanelCheckbox
             title={card.title}
             img ={card.img}
             key={i + "checkbox"}
-            checkboxes={checkboxes}
+            listItems={card.listItems}
+            />
+          )
+        }else if(card.cardType === "panelConfirm"){
+          newPanels.push(
+            <PanelConfirm
+            confirmMsg={card.confirmMsg}
+            title={card.title}
+            img ={card.img}
+            key={i + "confirm"}
+            listItems={card.listItems}
             />
           )
         }
@@ -113,11 +118,11 @@ class App extends React.Component{
           {this.state.panels}
         </div>
         <div className="newsFeed">
-          <CardLineGraph
+          {/*<CardLineGraph
             title = "Heartrate"
             chartData = {this.state.cchartData}
             key="sd"
-          />
+          />*/}
           {this.state.cards}
         </div>
       </div>

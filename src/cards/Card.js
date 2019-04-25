@@ -7,7 +7,7 @@ import { Line,Pie } from "react-chartjs-2";
 class CardLineGraph extends React.Component{
   render () {
     return (
-      <div className="card--lineGraph">
+      <div className="card card--lineGraph">
         <h3>{this.props.title}</h3>
         <Line className="chart--lineGraph"
           data={this.props.chartData}
@@ -20,7 +20,7 @@ class CardLineGraph extends React.Component{
 class CardPieGraph extends React.Component{
   render () {
     return (
-      <div className="card--pieGraph">
+      <div className="card card--pieGraph">
         <h3>{this.props.title}</h3>
         <Pie className="chart--pieGraph"
           data={this.props.chartData}
@@ -34,7 +34,7 @@ class CardPieGraph extends React.Component{
 class CardText extends React.Component{
   render () {
     return (
-      <div className="card--text">
+      <div className="card card--text">
         <img className="img--card--small" src={this.props.img} alt="images/thinking.png"></img>
         <div className="card--text__content">
           <h3 className="card--text__content__header">{this.props.title}</h3>
@@ -48,12 +48,17 @@ class CardText extends React.Component{
 class CardTextLink extends React.Component{
   render () {
     return (
-      <div className="card--text">
+      <div className="card card--text">
         <img className="img--card--small" src={this.props.img} alt="images/thinking.png"></img>
         <div className="card--text__content">
           <h3 className="card--text__content__header">{this.props.title}</h3>
           <p className="card--text__content__desc"> {this.props.desc}</p>
-          <a className="card--text__content__link" href={this.props.link} target="_blank"> {this.props.linkDisplay}</a>
+          < a className = "card--text__content__link"
+          href = {
+            this.props.link
+          }
+          target = "_blank"
+          rel = "noopener noreferrer" > { this.props.linkDisplay } </a>
         </div>
       </div>
     );
@@ -63,7 +68,7 @@ class CardTextLink extends React.Component{
 class NoCards extends React.Component{
   render(){
     return(
-      <div class = "card--noCards">
+      <div class="card card--noCards">
         <p> Damn you scroll fast :) Live a good life! </p>
       </div>
     )
