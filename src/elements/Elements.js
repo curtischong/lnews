@@ -40,6 +40,16 @@ class Checkbox extends React.Component {
   }
 }
 
+class Slider extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      startPos: this.props.startPos
+    };
+  }
+}
+
 export{
-  Checkbox
+  Checkbox,
+  Slider
 }

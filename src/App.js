@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {CardLineGraph, CardText, CardTextLink} from './cards/Card'
-import {PanelSurvey, PanelCheckbox, PanelConfirm} from './panels/Panel'
+import {PanelEval, PanelCheckbox, PanelConfirm} from './panels/Panel'
 import axios from 'axios';
 //TODO: move this to a config file
 const configFile = {
@@ -77,7 +77,6 @@ class App extends React.Component{
             />
           )
 
-
         /* Panels */
         }else if(card.cardType === "panelCheckbox"){
           newPanels.push(
@@ -96,6 +95,17 @@ class App extends React.Component{
             img ={card.img}
             key={i + "confirm"}
             listItems={card.listItems}
+            />
+          )
+        } else if (card.cardType === "panelEval"){
+          newPanels.push(
+            <PanelEval
+              title = {card.title}
+              img ={card.img}
+              evalType = {card.evalType}
+              intervalRadius = {card.intervalRadius}
+              intervalCenter = {card.intervalCenter}
+            key={i + "eval"}
             />
           )
         }

@@ -3,7 +3,7 @@
   transition: 0.3s;
   border-radius: 5px;
   width: 400px;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+  background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85));
   display: inline-block;
   margin: 10px;
   opacity: 1;
@@ -38,6 +38,20 @@
   margin: 10px;
 }
 
+.panel--eval__contents{
+  display: inline-block;
+}
+
 .panel__confirmElements{
 
+}
+.survey__radioUnit{
+  display: inline-block;
+}
+.survey__radio__label {
+  display: inline-block;
+}
+
+.survey__radio__radio{
+  display: inline-block;
 }

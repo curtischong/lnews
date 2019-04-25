@@ -29,7 +29,7 @@ class PanelCheckbox extends React.Component{
       checkCount: this.state.checkCount - 1,
     });
   }
-  
+
   handleChecked(){
     this.setState({
       checkCount: this.state.checkCount + 1,
@@ -65,6 +65,11 @@ class PanelCheckbox extends React.Component{
 };
 
 class PanelConfirm extends React.Component{
+
+  onSubmit(){
+    console.log("panel confirm submitted");
+  }
+
   render () {
     let confirmElements = [];
     for(let i = 0 ; i < this.props.listItems.length;i++){
@@ -80,26 +85,40 @@ class PanelConfirm extends React.Component{
           <h3 className="panel__header">{this.props.title}</h3>
         </div>
         <ul className="panel__confirmElements">{confirmElements}</ul>
-        <button className="panel__btn--submit">{this.props.confirmMsg}</button>
+        <button className="panel__btn--submit" onClick={this.onSubmit}>{this.props.confirmMsg}</button>
       </div>
     )
   }
 };
 
-class PanelSurvey extends React.Component{
+class PanelEval extends React.Component{
   setMood(event) {
     console.log(event.target.value);
   }
 
   render() {
+    let checkboxElements = []
+    let radius = this.props.intervalRadius;
+    let center = this.props.intervalCenter;
+    for(let i = center - radius ; i < center + radius + 1; i++){
+      checkboxElements.push(
+        <div className="survey__radioUnit" key={i + "surveyCheckbox"}>
+          <div className="survey__radio__label">{i}</div>
+          <input className="survey__radio__radio" type="radio" value={i} name="panelEval"/>
+        </div>
+      )
+    }
+
     return (
       <div className="panel">
-        <div onChange={this.setMood.bind(this)}>
-          <input type="radio" value="0" name="mood"/> 0
-          <input type="radio" value="1" name="mood"/> 1
-          <input type="radio" value="2" name="mood"/> 2
-          <input type="radio" value="3" name="mood"/> 3
-          <input type="radio" value="4" name="mood"/> 4
+        <img className="img--panel--small" src={this.props.img} alt="images/thinking.png"></img>
+        <div className="panel__top">
+          <div className="panel--eval__content">
+            <h3 className="panel__header">{this.props.title}</h3>
+            <div onChange={this.setMood.bind(this)}>
+              {checkboxElements}
+            </div>
+          </div>
         </div>
       </div>
      )
@@ -110,6 +129,6 @@ class PanelSurvey extends React.Component{
 
 export{
   PanelCheckbox,
-  PanelSurvey,
+  PanelEval,
   PanelConfirm
 }

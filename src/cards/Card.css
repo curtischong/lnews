@@ -1,3 +1,7 @@
+.card__con{
+  float: left;
+}
+
 .img--card--small{
   display: inline-block;
   vertical-align: middle;
@@ -7,7 +11,7 @@
 }
 
 .card {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+  background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85));
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
   border-radius: 5px;
@@ -42,6 +46,7 @@
   width: 800px;
   margin: 20px;
   padding: 20px;
+  left: 20px;
 }
 
 .card--text__content{
