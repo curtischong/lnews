@@ -45,6 +45,21 @@ class CardText extends React.Component{
   }
 };
 
+class CardTextLink extends React.Component{
+  render () {
+    return (
+      <div className="card--text">
+        <img className="img--card--small" src={this.props.img} alt="images/thinking.png"></img>
+        <div className="card--text__content">
+          <h3 className="card--text__content__header">{this.props.title}</h3>
+          <p className="card--text__content__desc"> {this.props.desc}</p>
+          <a className="card--text__content__link" href={this.props.link} target="_blank"> {this.props.linkDisplay}</a>
+        </div>
+      </div>
+    );
+  }
+};
+
 class NoCards extends React.Component{
   render(){
     return(
@@ -59,5 +74,6 @@ export {
   CardLineGraph,
   CardPieGraph,
   CardText,
+  CardTextLink,
   NoCards
 }

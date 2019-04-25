@@ -1,5 +1,29 @@
+a {
+  color: #3399ff;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: #24c600 !important;
+}
+a:visited {
+  color: #a32600;
+}
+a:focus {
+  outline: none;
+}
+
 .padding {
   height: 30px;
+}
+
+#root,html,body{
+  height: 100%;
 }
 
 .App {
@@ -10,6 +34,7 @@
   color: black;
   text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  height: 100%;
 }
 
 .centered {
@@ -25,4 +50,22 @@
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.15), red, rgba(255, 255, 255, 0.15));
   position: relative;
   margin: 0 auto;
+}
+.newsFeed{
+  display: inline-block;
+  right: 270px;
+  position: relative;
+}
+
+.panel{
+  opacity: 0.5;
+  position: absolute;
+  z-index: 1;
+  display: inline-block;
+  height: 100%;
+  width: 500px;
+  right: 0px;
+  background-color: ;
+  /*background-image:linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));*/
+  background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
 }

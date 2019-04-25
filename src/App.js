@@ -1,7 +1,12 @@
 import React from 'react';
 import './App.css';
-import {CardLineGraph, CardText} from './cards/Card'
+import {CardLineGraph, CardText, CardTextLink} from './cards/Card'
 import axios from 'axios';
+//TODO: move this to a config file
+const configFile = {
+  "debug": 0,
+  "post_to_server": false
+}
 
 class App extends React.Component{
   constructor(props){
@@ -21,6 +26,8 @@ class App extends React.Component{
       },
       cards: []
     }
+
+    /*
     for(let i = 0;i < 4;i++){
       this.state.cards.push(
         <CardLineGraph
@@ -30,31 +37,65 @@ class App extends React.Component{
         />
       )
     }
-      this.state.cards.push(
-        <CardText
-        title="Eat!"
-        desc="Eggs ham, maybe? bread? idk you haven't eaten yet man."
-        img = "images/food.png"
-        key={new Date().getDate()}
-        />
-      )
+    */
+
+    this.fetchCards();
+  }
+
+  fetchCards(){
+    if(!configFile.post_to_server){
+      return;
+    }
+    axios.get(`http://localhost:5000/get_card`)
+    .then(res => {
+      let cards = res.data; 
+      var newCards = this.state.cards.slice();
+
+      for(let i = 0; i < cards.length;i++){
+        let card = cards[i];
+        if(card.cardType == "text"){
+          newCards.push(
+            <CardText
+            title={card.title}
+            desc={card.desc}
+            img ={card.img}
+            key={i + "food"}
+            />
+          )
+        }else if(card.cardType == "textLink"){
+          newCards.push(
+            <CardTextLink
+            title={card.title}
+            desc={card.desc}
+            img ={card.img}
+            link={card.link}
+            linkDisplay={card.linkDisplay}
+            key={i + "link"}
+            />
+          )
+        }
+      }
+
+      this.setState({
+        cards: newCards
+      })
+    });
   }
 
   componentDidMount(){
-    axios.get(`http://localhost:5000/get_card`)
-    .then(res => {
-      console.log(res)
-    });
   }
 
   render () {
     return (
-      <div>
-        <div className="App">
-          <div className="padding"></div>
-            <div className="newsFeed">
-              {this.state.cards}
-          </div>
+      <div className="App">
+        <div className="panel"></div>
+        <div className="newsFeed">
+          <CardLineGraph
+            title = "Heartrate"
+            chartData = {this.state.cchartData}
+            key="sd"
+          />
+          {this.state.cards}
         </div>
       </div>
     );

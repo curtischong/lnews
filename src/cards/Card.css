@@ -66,6 +66,10 @@
   text-align: left;
 }
 
+.card--text__content__link{
+  text-align: left;
+}
+
 .card--noCards {
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
