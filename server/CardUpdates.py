@@ -11,3 +11,5 @@ def updatePhrase():
     return True
 
 
+def updateMorning():
+  return True

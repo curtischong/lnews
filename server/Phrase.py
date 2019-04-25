@@ -8,7 +8,7 @@ def sendPhraseCard():
   url = "https://www.phrases.org.uk/meanings/" + line[0]
   phrase = line[1]
 
-  phraseData = {
+  response = {
       "cardType": "textLink",
       "title": "Phrase Of The Day!",
       "desc": "Congrats Curtis! You've covered ... phrases in just x days!",
@@ -16,4 +16,4 @@ def sendPhraseCard():
       "linkDisplay": phrase,
       "img": "images/pen.png",
   }
-  return phraseData
+  return response
