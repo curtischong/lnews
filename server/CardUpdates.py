@@ -13,3 +13,10 @@ def updatePhrase():
 
 def updateMorning():
   return True
+
+
+def updateBreak():
+  return True
+
+def updateEval():
+  return True
