@@ -105,6 +105,8 @@ class App extends React.Component{
               evalType = {card.evalType}
               intervalRadius = {card.intervalRadius}
               intervalCenter = {card.intervalCenter}
+              startPos = {card.startPos}
+              submitMsg = {card.submitMsg}
             key={i + "eval"}
             />
           )

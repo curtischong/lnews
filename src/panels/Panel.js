@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Checkbox} from "../elements/Elements"
+import {Checkbox, Slider} from "../elements/Elements"
 import './Panel.css';
 
 class PanelCheckbox extends React.Component{
@@ -84,8 +84,10 @@ class PanelConfirm extends React.Component{
           <img className="img--panel--small" src={this.props.img} alt="images/thinking.png"></img>
           <h3 className="panel__header">{this.props.title}</h3>
         </div>
-        <ul className="panel__confirmElements">{confirmElements}</ul>
-        <button className="panel__btn--submit" onClick={this.onSubmit}>{this.props.confirmMsg}</button>
+        <div className="panel__content">
+          <ul className="panel__confirmElements">{confirmElements}</ul>
+          <button className="panel__btn--submit" onClick={this.onSubmit}>{this.props.confirmMsg}</button>
+        </div>
       </div>
     )
   }
@@ -96,35 +98,34 @@ class PanelEval extends React.Component{
     console.log(event.target.value);
   }
 
-  render() {
-    let checkboxElements = []
-    let radius = this.props.intervalRadius;
-    let center = this.props.intervalCenter;
-    for(let i = center - radius ; i < center + radius + 1; i++){
-      checkboxElements.push(
-        <div className="survey__radioUnit" key={i + "surveyCheckbox"}>
-          <div className="survey__radio__label">{i}</div>
-          <input className="survey__radio__radio" type="radio" value={i} name="panelEval"/>
-        </div>
-      )
-    }
+  handleChange(val){
+    console.log(val);
+  }
 
+  onSubmit(){
+    console.log("panel Eval submitted");
+  }
+
+  render() {
+    console.log(this.props);
     return (
       <div className="panel">
-        <img className="img--panel--small" src={this.props.img} alt="images/thinking.png"></img>
         <div className="panel__top">
-          <div className="panel--eval__content">
-            <h3 className="panel__header">{this.props.title}</h3>
-            <div onChange={this.setMood.bind(this)}>
-              {checkboxElements}
-            </div>
-          </div>
+          <img className="img--panel--small" src={this.props.img} alt="images/thinking.png"></img>
+          <h3 className="panel__header">{this.props.title}</h3>
         </div>
+        <div className="panel__content">
+            <Slider
+            handleChange={this.handleChange.bind(this)}
+            intervalRadius={this.props.intervalRadius}
+            intervalCenter={this.props.intervalCenter}
+            startPos={this.props.startPos}
+            />
+        </div>
+        <button className="panel__btn--submit" onClick={this.onSubmit}>{this.props.submitMsg}</button>
       </div>
      )
   }
-
-
 }
 
 export{

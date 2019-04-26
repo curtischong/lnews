@@ -44,8 +44,36 @@ class Slider extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      startPos: this.props.startPos
+      sliderValue: this.props.startPos,
     };
+  }
+
+  onSliderMoved(event){
+    this.setState({
+      sliderValue: event.target.value
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.sliderValue !== this.state.sliderValue){
+      this.props.handleChange(this.state.sliderValue);
+    }
+  }
+
+  render(){
+    let radius = this.props.intervalRadius;
+    let center = this.props.intervalCenter;
+    return(
+      <div className="element--slider__con">
+        <div className="element--slider__val">{this.state.sliderValue}</div>
+        <input type="range"
+        className="element--slider"
+        min={center - radius}
+        max={center + radius}
+        value={this.state.sliderValue}
+        onChange={this.onSliderMoved.bind(this)}/>
+      </div>
+    )
   }
 }
 

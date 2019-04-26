@@ -9,3 +9,49 @@
   margin: 10px;
   padding: 10px;
 }
+
+.element--slider__con{
+  width: 100%;
+  /* Width of the outside container */
+}
+
+/* The slider itself */
+.element--slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 300px;
+  right: 0px;
+  float: right;
+  height: 2px;
+  background: #519ad6;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  margin-right: 30px;
+  margin-top: 5px;
+  border-radius: 20px;
+}
+
+.element--slider:hover {
+  opacity: 1;
+}
+
+.element--slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: #e82764;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.element--slider__val{
+  display: inline-block;
+  margin-right: 20px;
+  left: 0px;
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
