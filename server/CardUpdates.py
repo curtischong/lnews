@@ -20,3 +20,7 @@ def updateBreak():
 
 def updateEval():
   return True
+
+def updateLizzieData():
+  # reminds me to sync data when I haven't synced
+  return True

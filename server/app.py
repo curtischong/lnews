@@ -6,6 +6,7 @@ import Phrase
 import Morning
 import Break
 import Eval
+import LizzieData
 import json
 app = Flask(__name__)
 CORS(app)
@@ -21,12 +22,16 @@ def updateCards():
     cards.append(Phrase.sendPhraseCard())
   if(CardUpdates.updateBreak()):
     cards.append(Break.sendBreakCard())
+  if(CardUpdates.updateLizzieData()):
+    cards.append(LizzieData.sendLizzieDataCard())
 
   # Panels
   if(CardUpdates.updateMorning()):
     cards.append(Morning.sendMorningPanel())
   if(CardUpdates.updateEval()):
     cards.append(Eval.sendEvalPanel())
+  if(CardUpdates.updateEval()):
+    cards.append(Eval.sendAllEvalPanel())
 
 @app.route('/get_card')
 def get_card():
