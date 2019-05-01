@@ -1,3 +1,7 @@
+*:focus {
+  outline: none;
+}
+
 a {
   color: #3399ff;
   -webkit-transition: 0.5s;
@@ -13,9 +17,6 @@ a:hover {
 }
 a:visited {
   color: #a32600;
-}
-a:focus {
-  outline: none;
 }
 
 button{
@@ -83,6 +84,7 @@ button:focus {
   height: 100%;
   width: 500px;
   right: 0px;
+  overflow-y: scroll;
   /*background-image:linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));*/
   background-image:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 }

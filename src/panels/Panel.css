@@ -47,6 +47,17 @@
 .panel__confirmElements{
 
 }
+
+.panel__topic{
+  text-align: center;
+  margin-left: 35px;
+}
+
+.panel--eval__cell {
+  margin-bottom: 45px;
+}
+
+
 .survey__radioUnit{
   display: inline-block;
 }

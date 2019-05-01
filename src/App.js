@@ -3,6 +3,8 @@ import './App.css';
 import {CardLineGraph, CardText, CardTextLink} from './cards/Card'
 import {PanelEval, PanelCheckbox, PanelConfirm} from './panels/Panel'
 import axios from 'axios';
+import * as httpManager from './httpManager.js';
+
 //TODO: move this to a config file
 const configFile = {
   "debug": 0,
@@ -102,10 +104,7 @@ class App extends React.Component{
             <PanelEval
               title = {card.title}
               img ={card.img}
-              evalType = {card.evalType}
-              intervalRadius = {card.intervalRadius}
-              intervalCenter = {card.intervalCenter}
-              startPos = {card.startPos}
+              evalFields = {card.evalFields}
               submitMsg = {card.submitMsg}
             key={i + "eval"}
             />

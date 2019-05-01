@@ -54,4 +54,22 @@
   float: left;
   margin-left: 30px;
   margin-bottom: 10px;
+  width: 15px;
+}
+
+.element--textbox{
+  /* box-sizing: padding-box; */
+  overflow:hidden;
+  /* demo only: */
+  width:350px;
+  resize: none;
+  margin: auto;
+  margin-bottom: 20px;
+  height: 15px;
+
+  font-size:14px;
+  display:block;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #00668c;
 }

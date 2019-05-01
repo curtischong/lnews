@@ -56,7 +56,7 @@ class Slider extends React.Component{
 
   componentDidUpdate(prevProps, prevState){
     if(prevState.sliderValue !== this.state.sliderValue){
-      this.props.handleChange(this.state.sliderValue);
+      this.props.handleChange(this.state.sliderValue,this.props.idx);
     }
   }
 
@@ -77,7 +77,28 @@ class Slider extends React.Component{
   }
 }
 
+class TextBox extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      textboxVal: ""
+    }
+  }
+
+  onChange(){
+
+  }
+
+  render(){
+    return(
+        <textarea className = "element--textbox" placeholder = "Comments?"/> 
+    )
+  }
+}
+
 export{
   Checkbox,
-  Slider
+  Slider,
+  TextBox
 }
