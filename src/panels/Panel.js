@@ -107,7 +107,8 @@ class PanelEval extends React.Component{
       startingVals.push(this.props.evalFields[i].intervalCenter)
     }
     this.state = {
-      sliderVals: startingVals
+      sliderVals: startingVals,
+      comments: ""
     }
   }
 
@@ -115,14 +116,19 @@ class PanelEval extends React.Component{
     console.log(event.target.value);
   }
 
-  handleChange(val,idx){
+  handleSliderChange(val, idx) {
     let newSliderVals = this.state.sliderVals.slice();
     newSliderVals[idx] = val;
 
     this.setState({
       "sliderVals": newSliderVals
     })
-    console.log(newSliderVals);
+  }
+
+  handleMsgChange(val){
+    this.setState({
+      "comments": val
+    });
   }
 
   onSubmit(){
@@ -130,16 +136,16 @@ class PanelEval extends React.Component{
     let evalSliders = [];
     for(let i = 0; i < this.props.evalFields.length;i++){
       let curField = this.props.evalFields[i];
-      /*evalSliders.push({
-        "evalType": curField[i].evalType,
-        "evalVal": 
-      });*/
+      evalSliders.push({
+        "evalType": curField.evalType,
+        "evalVal": this.state.sliderVals[i]
+      });
     }
 
     let evalObj = {
       "evalDatetime": new Date().getTime(),
       "evalSliders": evalSliders,
-      "comments": evalObj.comments,
+      "comments": this.state.comments,
       "evalLocation": "web"
     }
   }
@@ -166,10 +172,10 @@ class PanelEval extends React.Component{
         <div className="panel--eval__cell" key={i + "panelEval"}>
           <p className="panel__topic">{allTitles[i]}</p>
           <Slider
-          handleChange={this.handleChange.bind(this)}
+          handleChange={this.handleSliderChange.bind(this)}
           intervalRadius={curField.intervalRadius}
           intervalCenter={curField.intervalCenter}
-          startPos={curField.startPos}
+          pos={this.state.sliderVals[i]}
           idx={i} />
         </div>
       )
@@ -185,8 +191,8 @@ class PanelEval extends React.Component{
         <div className="panel__content">
           {allFields}
         </div>
-        <TextBox/>
-        <button className="panel__btn--submit" style={{marginLeft: 35}} onClick={this.onSubmit}>{this.props.submitMsg}</button>
+        < TextBox handleChange={this.handleMsgChange.bind(this)} value={this.state.message}/>
+        <button className="panel__btn--submit" style={{marginLeft: 35}} onClick={this.onSubmit.bind(this)}>{this.props.submitMsg}</button>
       </div>
      )
   }

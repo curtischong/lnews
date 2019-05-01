@@ -2,6 +2,7 @@ import React from 'react';
 
 import './Elements.css';
 
+//TODO: move state upwards
 class Checkbox extends React.Component {
   constructor(props) {
     super(props);
@@ -41,23 +42,9 @@ class Checkbox extends React.Component {
 }
 
 class Slider extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      sliderValue: this.props.startPos,
-    };
-  }
 
-  onSliderMoved(event){
-    this.setState({
-      sliderValue: event.target.value
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.sliderValue !== this.state.sliderValue){
-      this.props.handleChange(this.state.sliderValue,this.props.idx);
-    }
+  onSliderChanged(event){
+    this.props.handleChange(event.target.value,this.props.idx);
   }
 
   render(){
@@ -65,13 +52,13 @@ class Slider extends React.Component{
     let center = this.props.intervalCenter;
     return(
       <div className="element--slider__con">
-        <div className="element--slider__val">{this.state.sliderValue}</div>
+        <div className="element--slider__val">{this.props.pos}</div>
         <input type="range"
         className="element--slider"
         min={center - radius}
         max={center + radius}
-        value={this.state.sliderValue}
-        onChange={this.onSliderMoved.bind(this)}/>
+        value={this.props.pos}
+        onChange={this.onSliderChanged.bind(this)}/>
       </div>
     )
   }
@@ -82,17 +69,25 @@ class TextBox extends React.Component {
     super(props);
 
     this.state = {
-      textboxVal: ""
+      textboxVal: this.props.message,
+      textboxHeight: 17
     }
   }
 
-  onChange(){
-
+  onTextBoxChanged(event){
+    this.props.handleChange(event.target.value);
+    this.setState({
+      textboxHeight: event.target.scrollHeight - 4
+    })
   }
 
   render(){
     return(
-        <textarea className = "element--textbox" placeholder = "Comments?"/> 
+        <textarea className = "element--textbox"
+        style = {{ height: this.state.textboxHeight + "px" }}
+        value={this.props.value}
+        placeholder = "Comments?"
+        onChange={this.onTextBoxChanged.bind(this)}/>
     )
   }
 }
