@@ -1,13 +1,20 @@
+import sys
+import os
+#sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/cardUpdates")
+#print(sys.path)
+
+import card_updates.CardUpdates as CardUpdates
+import card_updates.Eat as Eat
+import card_updates.Phrase as Phrase
+import card_updates.Morning as Morning
+import card_updates.Break as Break
+import card_updates.Eval as Eval
+import card_updates.LizzieData as LizzieData
+
+import json
+
 from flask import Flask
 from flask_cors import CORS
-import CardUpdates
-import Eat
-import Phrase
-import Morning
-import Break
-import Eval
-import LizzieData
-import json
 app = Flask(__name__)
 CORS(app)
 
