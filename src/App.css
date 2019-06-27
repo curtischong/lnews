@@ -1,0 +1,90 @@
+*:focus {
+  outline: none;
+}
+
+a {
+  color: #3399ff;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: #24c600 !important;
+}
+a:visited {
+  color: #a32600;
+}
+
+button{
+  border: none;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  background-color: #16a356;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+}
+
+button:hover{
+  background-color: #0b6b7a !important;
+}
+
+button:focus {
+  outline: none;
+}
+.padding {
+  height: 30px;
+}
+#root,body,html{
+  height: 100%;
+}
+
+.App {
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url("/images/background.png");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  color: black;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100%;
+}
+
+.centered {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.splithr {
+  border: 0;
+  height: 1px;
+  width: 80%;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.15), red, rgba(255, 255, 255, 0.15));
+  position: relative;
+  margin: 0 auto;
+}
+.newsFeed{
+  display: inline-block;
+  right: 270px;
+  position: relative;
+}
+
+.panelFeed{
+  position: fixed;
+  z-index: 1;
+  display: inline-block;
+  height: 100%;
+  width: 500px;
+  right: 0px;
+  overflow-y: scroll;
+  /*background-image:linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));*/
+  background-image:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}

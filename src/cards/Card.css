@@ -1,0 +1,78 @@
+.card__con{
+  float: left;
+}
+
+.img--card--small{
+  display: inline-block;
+  vertical-align: middle;
+  height: 100px;
+  width: 100px;
+  margin: 10px;
+}
+
+.card {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85));
+  box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 500px;
+  display: inline-block;
+}
+
+.card--lineGraph {
+  box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 800px;
+  height: 500px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.card--pieGraph {
+  box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 800px;
+  height: 500px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.card--text{
+  box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 800px;
+  margin: 20px;
+  padding: 20px;
+  left: 20px;
+}
+
+.card--text__content{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.card--text__content__header{
+  text-align: left;
+}
+
+.card--text__content__desc{
+  text-align: left;
+}
+
+.card--text__content__link{
+  text-align: left;
+}
+
+.card--noCards {
+  box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
+  transition: 0.3s;
+  border-radius: 5px;
+  height: 50px;
+  width: 50%;
+}
+
+.chart--lineGraph{
+}
