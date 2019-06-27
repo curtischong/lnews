@@ -1,7 +1,7 @@
 # Lizzie News
 
 <p align="center">
-  <img src="https://chongcurtis.com/file_hosting/lnews.png" alt="A photo of Lizzie News"/>
+  <img src="https://chongcurtis.com/file_hosting/lnews.png" alt="A photo of Lizzie News" width="500px"/>
 </p>
 
 I've always had ideas that needed some sort of notification delivery service. 
