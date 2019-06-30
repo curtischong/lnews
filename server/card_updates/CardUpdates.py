@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 
 
-def updateEat():
+def updateEatCard():
   if(datetime.now().hour > 4):
     return True
 
@@ -22,6 +22,10 @@ def updateEval():
   return True
 
 
-def updateLizzieData():
+def updateLizzieDataCard():
   # reminds me to sync data when I haven't synced
+  return True
+
+
+def updateCongratsWordUseCard():
   return True

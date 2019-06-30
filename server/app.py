@@ -1,15 +1,16 @@
 import sys
 import os
-#sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/cardUpdates")
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/card_updates")
 #print(sys.path)
 
-import card_updates.CardUpdates as CardUpdates
-import card_updates.Eat as Eat
-import card_updates.Phrase as Phrase
-import card_updates.Morning as Morning
-import card_updates.Break as Break
-import card_updates.Eval as Eval
-import card_updates.LizzieData as LizzieData
+import CardUpdates as CardUpdates
+import Eat as Eat
+import Phrase as Phrase
+import Morning as Morning
+import Break as Break
+import Eval as Eval
+import LizzieData as LizzieData
+import CongratsWordUse as CongratsWordUse
 
 import json
 
@@ -23,14 +24,16 @@ cards = []
 
 def updateCards():
   # Cards
-  if(CardUpdates.updateEat()):
+  if(CardUpdates.updateEatCard()):
     cards.append(Eat.sendEatCard())
   if(CardUpdates.updatePhrase()):
     cards.append(Phrase.sendPhraseCard())
   if(CardUpdates.updateBreak()):
     cards.append(Break.sendBreakCard())
-  if(CardUpdates.updateLizzieData()):
+  if(CardUpdates.updateLizzieDataCard()):
     cards.append(LizzieData.sendLizzieDataCard())
+  #if(CardUpdates.updateCongratsWordUseCard()):
+  #  cards.append(CongratsWordUse.sendCongratsWordUseCard())
 
   # Panels
   if(CardUpdates.updateMorning()):

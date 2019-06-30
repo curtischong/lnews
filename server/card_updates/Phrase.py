@@ -1,7 +1,13 @@
 import random
+import datetime
+
+# TODO: Save the idx and the day since 1970 in the DB
 def sendPhraseCard():
   lineList = [line.rstrip('\n') for line in open("phrase/all_phrases.txt")]
   numLines = len(lineList)
+
+  # The number of days since 1970
+  random.seed((datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).days)
   idx = random.randint(0, numLines-1)
 
   line = lineList[idx].split(";")

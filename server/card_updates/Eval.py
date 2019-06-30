@@ -1,4 +1,4 @@
-evalTypes = ["Accomplished","Tired", "Exhausted", "Social", "Happy"]
+evalTypes = ["accomplishedEval", "tiredEval", "exhaustedEval", "socialEval", "happyEval"]
 evalTitles = ["Do you feel Accomplished?","Feeling Tired?", "Wow was that exhausting?", "Look at you... you social(Lite)", "Smiles today?"]
 evalImages = ["accomplished.svg","eval.svg","exhausting.svg","friendship.svg","home.svg"]
 submitMsg = ["conquer the world!","Yaawwnnn err... I'm awake","pooped or duped?","I'm Slizzard","Positive Parabolas c:)"]
