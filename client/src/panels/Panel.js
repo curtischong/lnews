@@ -4,8 +4,10 @@ import {
   Checkbox,
   Slider,
   TextBox
-} from "../elements/Elements"
+} from '../elements/Elements'
 import './Panel.css';
+import * as httpManager from '../httpManager';
+//import config from 'config'
 
 class PanelCheckbox extends React.Component{
 
@@ -133,21 +135,23 @@ class PanelEval extends React.Component{
 
   onSubmit(){
     console.log("panel Eval submitted");
-    let evalSliders = [];
-    for(let i = 0; i < this.props.evalFields.length;i++){
-      let curField = this.props.evalFields[i];
-      evalSliders.push({
-        "evalType": curField.evalType,
-        "evalVal": this.state.sliderVals[i]
-      });
-    }
-
     let evalObj = {
-      "evalDatetime": new Date().getTime(),
-      "evalSliders": evalSliders,
+      "evalDatetime": parseInt(parseInt(new Date().getTime()) / 1000),
+      "accomplishedEval": 999,
+      "socialEval": 999,
+      "exhaustedEval": 999,
+      "tiredEval": 999,
+      "happyEval": 999,
       "comments": this.state.comments,
       "evalLocation": "web"
     }
+
+    for(let i = 0; i < this.props.evalFields.length;i++){
+      let curField = this.props.evalFields[i];
+      evalObj[curField.evalType] = parseInt(this.state.sliderVals[i])
+    }
+
+    httpManager.sendEmotionEval(evalObj)
   }
 
   render() {

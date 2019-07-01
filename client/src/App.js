@@ -2,14 +2,8 @@ import React from 'react';
 import './App.css';
 import {CardLineGraph, CardText, CardTextLink} from './cards/Card'
 import {PanelEval, PanelCheckbox, PanelConfirm} from './panels/Panel'
-import axios from 'axios';
-import * as httpManager from './httpManager.js';
-
-//TODO: move this to a config file
-const configFile = {
-  "debug": 0,
-  "post_to_server": true
-}
+import * as httpManager from './httpManager';
+import config, {} from './config';
 
 class App extends React.Component{
   constructor(props){
@@ -30,6 +24,8 @@ class App extends React.Component{
       cards: [],
       panels: []
     }
+    console.log(`isDev: ${config.isDev}`)
+    console.log(`logV: ${config.logv}`)
 
     /*
     for(let i = 0;i < 4;i++){
@@ -47,17 +43,22 @@ class App extends React.Component{
   }
 
   fetchCards(){
-    if(!configFile.post_to_server){
+    if(!config.fetchCards){
       return;
     }
-    axios.get(`http://localhost:5000/get_card`)
+    httpManager.getCards()
     .then(res => {
-      let cards = res.data; 
+      let cards = JSON.parse(res.data.cards);
+      let panels = JSON.parse(res.data.panels);
       var newCards = this.state.cards.slice();
       var newPanels = this.state.panels.slice();
 
+      // This is poor design and doesn't really follow proper design patterns
+      // We shouldn't assign a card type. The parent should accomodate for it
+      // I think I should create a parent card that has title and desc and
+      // leave the rest of the fields for the children cards
       for(let i = 0; i < cards.length;i++){
-        let card = cards[i];
+        let card = JSON.parse(cards[i]);
         if(card.cardType === "text"){
           newCards.push(
             <CardText
@@ -78,34 +79,39 @@ class App extends React.Component{
             key={i + "link"}
             />
           )
+        }
+      }
 
-        /* Panels */
-        }else if(card.cardType === "panelCheckbox"){
+      for(let i = 0; i < panels.length;i++){
+        let panel = JSON.parse(panels[i]);
+        console.log(panel)
+        if(panel.panelType === "panelCheckbox"){
           newPanels.push(
             <PanelCheckbox
-            title={card.title}
-            img ={card.img}
+            title={panel.title}
+            img ={panel.img}
             key={i + "checkbox"}
-            listItems={card.listItems}
+            listItems={panel.listItems}
             />
           )
-        }else if(card.cardType === "panelConfirm"){
+        }else if(panel.panelType === "panelConfirm"){
+            console.log("hiasd");
           newPanels.push(
             <PanelConfirm
-            confirmMsg={card.confirmMsg}
-            title={card.title}
-            img ={card.img}
+            confirmMsg={panel.confirmMsg}
+            title={panel.title}
+            img ={panel.img}
             key={i + "confirm"}
-            listItems={card.listItems}
+            listItems={panel.listItems}
             />
           )
-        } else if (card.cardType === "panelEval"){
+        } else if (panel.panelType === "panelEval"){
           newPanels.push(
             <PanelEval
-              title = {card.title}
-              img ={card.img}
-              evalFields = {card.evalFields}
-              submitMsg = {card.submitMsg}
+              title = {panel.title}
+              img ={panel.img}
+              evalFields = {panel.evalFields}
+              submitMsg = {panel.submitMsg}
             key={i + "eval"}
             />
           )

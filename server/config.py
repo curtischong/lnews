@@ -1,6 +1,10 @@
+import os
+
+curDir = os.path.dirname(os.path.abspath(__file__))
 import json
 def getConfig():
-  with open('secret/config.json') as f:
+  # print(curDir)
+  with open(curDir + '/secret/config.json') as f:
     return json.load(f)
 
 def getServerIP(config):

@@ -34,3 +34,4 @@ Portrait: https://www.flaticon.com/free-icon/portrait_374976
 Cat: https://www.flaticon.com/free-icon/cat_374980
 Twins: https://www.flaticon.com/free-icon/twins_374991
 Dog: https://www.flaticon.com/free-icon/dog_374973
+Clap: https://www.flaticon.com/free-icon/clap_1313777

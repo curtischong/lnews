@@ -9,7 +9,7 @@ startPos= [0,0,0,0,0]
 def sendEvalPanel():
   curEval = 0
   response = {
-    "cardType": "panelEval",
+    "panelType": "panelEval",
     "evalFields": [{
       "evalType": evalTypes[curEval],
       "intervalRadius": intervalRadius[curEval],
@@ -35,7 +35,7 @@ def sendAllEvalPanel():
     })
 
   response = {
-    "cardType": "panelEval",
+    "panelType": "panelEval",
     "evalFields": allFields,
     "submitMsg": "Phew! That was hard. Thanks!",
     "img": "images/timeline.svg" 

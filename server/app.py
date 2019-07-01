@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/card_updates")
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/cardUpdates")
 #print(sys.path)
 
 import CardUpdates as CardUpdates

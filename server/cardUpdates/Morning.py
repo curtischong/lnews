@@ -1,6 +1,6 @@
 def sendMorningPanel():
   response = {
-      "cardType": "panelConfirm",
+      "panelType": "panelConfirm",
       "title": "Don't forget before you leave!",
       "confirmMsg": "Got everything?",
       "img": "images/morning.svg",
