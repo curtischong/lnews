@@ -74,7 +74,7 @@ class PanelConfirm extends React.Component{
 
   onSubmit(){
     console.log("panel confirm submitted");
-
+    httpManager.dismissPanel(this.props.timePlaced);
   }
 
   render () {
@@ -93,7 +93,7 @@ class PanelConfirm extends React.Component{
         </div>
         <div className="panel__content">
           <ul className="panel__confirmElements">{confirmElements}</ul>
-          <button className="panel__btn--submit" onClick={this.onSubmit}>{this.props.confirmMsg}</button>
+          <button className="panel__btn--submit" onClick={this.onSubmit.bind(this)}>{this.props.confirmMsg}</button>
         </div>
       </div>
     )
@@ -148,10 +148,11 @@ class PanelEval extends React.Component{
 
     for(let i = 0; i < this.props.evalFields.length;i++){
       let curField = this.props.evalFields[i];
-      evalObj[curField.evalType] = parseInt(this.state.sliderVals[i])
+      evalObj[curField.evalType] = parseInt(this.state.sliderVals[i]);
     }
 
-    httpManager.sendEmotionEval(evalObj)
+    httpManager.sendEmotionEval(evalObj);
+    httpManager.dismissPanel(this.props.time);
   }
 
   render() {

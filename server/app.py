@@ -14,8 +14,9 @@ import CongratsWordUse as CongratsWordUse
 
 import json
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
+import databaseManager
 app = Flask(__name__)
 CORS(app)
 
@@ -43,9 +44,19 @@ def updateCards():
   if(CardUpdates.updateEval()):
     cards.append(Eval.sendAllEvalPanel())
 
-@app.route('/get_card')
+# TODO: remove
+@app.route('/get_card', methods=['GET'])
 def get_card():
     while(len(cards) > 0):
       cards.pop()
     updateCards()
     return json.dumps(cards)
+
+
+@app.route('/dismiss_panel', methods=['POST'])
+def dismiss_panel():
+  timePlaced = request.json['timePlaced'] if request.json['timePlaced'] else None
+  if(timePlaced == None):
+    return "timePlaced field not found!"
+  databaseManager.dismissPanel(timePlaced)
+  return "dismissed panel!"

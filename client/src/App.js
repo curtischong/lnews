@@ -48,8 +48,8 @@ class App extends React.Component{
     }
     httpManager.getCards()
     .then(res => {
-      let cards = JSON.parse(res.data.cards);
-      let panels = JSON.parse(res.data.panels);
+      let cards = res.data.cards;
+      let panels = res.data.panels;
       var newCards = this.state.cards.slice();
       var newPanels = this.state.panels.slice();
 
@@ -58,7 +58,8 @@ class App extends React.Component{
       // I think I should create a parent card that has title and desc and
       // leave the rest of the fields for the children cards
       for(let i = 0; i < cards.length;i++){
-        let card = JSON.parse(cards[i]);
+        let card = JSON.parse(cards[i].card);
+        let cardTime = cards[i].time;
         if(card.cardType === "text"){
           newCards.push(
             <CardText
@@ -83,11 +84,12 @@ class App extends React.Component{
       }
 
       for(let i = 0; i < panels.length;i++){
-        let panel = JSON.parse(panels[i]);
-        console.log(panel)
+        let panel = JSON.parse(panels[i].panel);
+        let panelTime = panels[i].time;
         if(panel.panelType === "panelCheckbox"){
           newPanels.push(
             <PanelCheckbox
+            timePlaced={panelTime}
             title={panel.title}
             img ={panel.img}
             key={i + "checkbox"}
@@ -95,9 +97,9 @@ class App extends React.Component{
             />
           )
         }else if(panel.panelType === "panelConfirm"){
-            console.log("hiasd");
           newPanels.push(
             <PanelConfirm
+            timePlaced={panelTime}
             confirmMsg={panel.confirmMsg}
             title={panel.title}
             img ={panel.img}
@@ -108,6 +110,7 @@ class App extends React.Component{
         } else if (panel.panelType === "panelEval"){
           newPanels.push(
             <PanelEval
+            timePlaced={panelTime}
               title = {panel.title}
               img ={panel.img}
               evalFields = {panel.evalFields}
