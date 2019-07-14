@@ -1,9 +1,8 @@
+import psycopg2
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../")
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../cardUpdates")
-print(sys.path)
-from influxdb import InfluxDBClient
 from config import getConfig, getDBIP
 from datetime import datetime
 import json
@@ -17,41 +16,40 @@ DBUser = config['DB']['user']
 DBPassword = config['DB']['password']
 DBName = config['DB']['DBName']
 
-client = InfluxDBClient(getDBIP(config), DBIP, DBUser, DBPassword, DBName)
+conn = psycopg2.connect(host=getDBIP(config), database=DBName, user=DBUser, password=DBPassword)
+cur = conn.cursor()
 #result = client.query('select * from next_cards;')
 
 # NOTE: if you might need to add random milliseconds or delay by milliseconds so the cards don't stack
-current_time = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+current_time = datetime.now()
 
-def writeCards():
+def formatUnixt(ts):
+  # We don't want to divide by 1000 we want it in milliseconds
+  return int(ts*1000)
+
+def writeCards(cursor):
   data = json.dumps(Eat.sendEatCard())
-  json_body = [
-      {
-          "measurement": "cards",
-          "time": current_time,
-          "fields": {
-            "card": data
-          }
-      }
-  ]
+  ts = current_time
+  unixt = formatUnixt(current_time.timestamp())
+  print(unixt)
 
-  print("Write points: {0}".format(json_body))
-  client.write_points(json_body)
+  query="insert into lnews.card (unixt, ts, card) values(%s,%s,%s)"
 
-def writePanels():
+  print("Write points: {0}".format(query))
+  cursor.execute(query, (unixt, ts, data))
+
+def writePanels(cursor):
   data = json.dumps(Morning.sendMorningPanel())
-  json_body = [
-      {
-          "measurement": "panels",
-          "time": current_time,
-          "fields": {
-            "panel": data,
-            "dismissed": False
-          }
-      }
-  ]
+  ts = current_time
+  unixt = formatUnixt(current_time.timestamp())
 
-  print("Write points: {0}".format(json_body))
-  client.write_points(json_body)
-writeCards()
-writePanels()
+  query="insert into lnews.panel (unixt, ts, panel) values(%s,%s,%s)"
+
+  print("Write points: {0}".format(query))
+  cursor.execute(query, (unixt, ts, data))
+writeCards(cur)
+writePanels(cur)
+
+conn.commit()
+cur.close()
+conn.close()
