@@ -2,8 +2,13 @@ import React from 'react';
 import './App.css';
 import {CardLineGraph, CardText, CardTextLink} from './cards/Card'
 import {PanelEval, PanelCheckbox, PanelConfirm} from './panels/Panel'
+import {} from './panels/Panel'
 import * as httpManager from './httpManager';
 import config, {} from './config';
+import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
+const REFRESH_GET_CARD_AMOUNT = 5
+const REFRESH_GET_PANEL_AMOUNT = 5
 
 class App extends React.Component{
   constructor(props){
@@ -21,8 +26,19 @@ class App extends React.Component{
           }
         ]
       },
+      cardOffset: 0,
+      panelOffset: 0,
       cards: [],
-      panels: []
+      panels: [],
+      sheets: {
+        "peaks": {
+          "skills": [],
+          "reviews": []
+        },
+        "lifeEvent": {
+          "marks": []
+        }
+      }
     }
     console.log(`isDev: ${config.isDev}`)
     console.log(`logV: ${config.logv}`)
@@ -42,16 +58,52 @@ class App extends React.Component{
     this.fetchCards();
   }
 
+  /*
+  fetchSheets(){
+    let peaksNewSkills = []
+    let peaksNewReviews = []
+
+
+    //httpManager.getSheets()
+    .then(res => {
+
+      peaksNewSkills.push(
+        <Sheet/>
+
+      )
+      this.setState({
+        "peaks": {
+          "skills": peaksNewSkills,
+          "reviews": peaksNewReviews
+        }
+      })
+    });
+
+  }*/
+
   fetchCards(){
     if(!config.fetchCards){
       return;
     }
-    httpManager.getCards()
+    let getCardsAndPanelsObj = {
+      "cardAmount": 5,
+      "cardOffset": 0,
+      "panelAmount": 5,
+      "panelOffset": 0
+    }
+    console.log(getCardsAndPanelsObj)
+    httpManager.getCards(getCardsAndPanelsObj)
     .then(res => {
+      this.setState({
+        cardOffset: this.state.cardOffset + REFRESH_GET_CARD_AMOUNT,
+        panelOffset: this.state.panelOffset + REFRESH_GET_PANEL_AMOUNT,
+      })
       let cards = res.data.cards;
       let panels = res.data.panels;
       var newCards = this.state.cards.slice();
       var newPanels = this.state.panels.slice();
+      console.log(cards)
+      console.log(panels)
 
       // This is poor design and doesn't really follow proper design patterns
       // We shouldn't assign a card type. The parent should accomodate for it
@@ -59,7 +111,7 @@ class App extends React.Component{
       // leave the rest of the fields for the children cards
       for(let i = 0; i < cards.length;i++){
         let card = JSON.parse(cards[i].card);
-        let cardTime = cards[i].time;
+        let cardTime = parseInt(cards[i].unixt);
         if(card.cardType === "text"){
           newCards.push(
             <CardText
@@ -84,8 +136,9 @@ class App extends React.Component{
       }
 
       for(let i = 0; i < panels.length;i++){
+        console.log(panels[i].panel)
         let panel = JSON.parse(panels[i].panel);
-        let panelTime = panels[i].time;
+        let panelTime = parseInt(panels[i].unixt, 10);
         if(panel.panelType === "panelCheckbox"){
           newPanels.push(
             <PanelCheckbox
@@ -134,9 +187,9 @@ class App extends React.Component{
   render () {
     return (
       <div className="App">
-        <div className="panelFeed">
-          {this.state.panels}
-        </div>
+        {/*<div className="standFeed">
+          {this.state.sheets}
+    </div>*/}
         <div className="newsFeed">
           <CardLineGraph
             title = "Heartrate"
@@ -144,6 +197,11 @@ class App extends React.Component{
             key="sd"
           />
           {this.state.cards}
+        </div>
+        <div className="panelFeed">
+          <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
+          {this.state.panels}
+          </ReactCSSTransitionGroup>
         </div>
       </div>
     );

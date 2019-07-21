@@ -15,17 +15,17 @@ const getCards = (getCardsAndPanelsObj) => {
     data: JSON.stringify(getCardsAndPanelsObj),
     headers: headers
   }) // This returns a promise!*/
-  /*
+
   return axios.get(getLizzieServerIP() + "get_cards_and_panels",{
-    params : JSON.stringify(getCardsAndPanelsObj),
+    params : getCardsAndPanelsObj,
     headers: headers
-  });*/
-  return axios({
-    method: 'post',
-    url: getLizzieServerIP() + "get_cards_and_panels",
-    data: getCardsAndPanelsObj,
+  });
+};
+
+const getSheets = () => {
+  return axios.get(getLizzieServerIP() + "get_sheets",{
     headers: headers
-  }) // This returns a promise!*/
+  });
 };
 
 const sendEmotionEval = (evalObj) => {
@@ -39,10 +39,10 @@ const sendEmotionEval = (evalObj) => {
 const dismissPanel = (timePlaced) => {
   //dismissPanel
   let payload = {
-    "timePlaced": timePlaced
+    "unixt": timePlaced
   }
-  console.log(timePlaced)
-  axios.post(getLNewsServerIP() + "dismiss_panel", JSON.stringify(payload), {headers: headers})
+  console.log(payload)
+  axios.post(getLizzieServerIP() + "dismiss_panel", JSON.stringify(payload))
   .then(res => {
     console.log(res);
   });
@@ -50,6 +50,7 @@ const dismissPanel = (timePlaced) => {
 
 export {
   getCards,
+  getSheets,
   sendEmotionEval,
   dismissPanel
 }
