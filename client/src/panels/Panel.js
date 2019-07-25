@@ -181,7 +181,8 @@ class PanelEval extends React.Component{
           intervalRadius={curField.intervalRadius}
           intervalCenter={curField.intervalCenter}
           pos={this.state.sliderVals[i]}
-          idx={i} />
+          idx={i}
+          sliderType='panel'/>
         </div>
       )
     }

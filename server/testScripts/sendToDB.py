@@ -8,6 +8,7 @@ from datetime import datetime
 import json
 import Eat
 import Morning
+import Eval
 
 config = getConfig()
 
@@ -39,7 +40,8 @@ def writeCards(cursor):
   cursor.execute(query, (unixt, ts, data))
 
 def writePanels(cursor):
-  data = json.dumps(Morning.sendMorningPanel())
+  # data = json.dumps(Morning.sendMorningPanel())
+  data = json.dumps(Eval.sendEvalPanel())
   ts = current_time
   unixt = formatUnixt(current_time.timestamp())
 

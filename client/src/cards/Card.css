@@ -15,7 +15,7 @@
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
   border-radius: 5px;
-  width: 500px;
+  width: 600px;
   display: inline-block;
 }
 
@@ -23,7 +23,6 @@
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
   border-radius: 5px;
-  width: 800px;
   height: 500px;
   margin: 20px;
   padding: 20px;
@@ -33,7 +32,6 @@
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
   border-radius: 5px;
-  width: 800px;
   height: 500px;
   margin: 20px;
   padding: 20px;
@@ -43,7 +41,6 @@
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.8);
   transition: 0.3s;
   border-radius: 5px;
-  width: 800px;
   margin: 20px;
   padding: 20px;
   left: 20px;

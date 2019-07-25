@@ -6,6 +6,7 @@ import {} from './panels/Panel'
 import * as httpManager from './httpManager';
 import config, {} from './config';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import {SheetMenu} from './sheets/Sheet'
 
 const REFRESH_GET_CARD_AMOUNT = 5
 const REFRESH_GET_PANEL_AMOUNT = 5
@@ -187,9 +188,12 @@ class App extends React.Component{
   render () {
     return (
       <div className="App">
-        {/*<div className="standFeed">
-          {this.state.sheets}
-    </div>*/}
+        <div className="stand">
+          <SheetMenu>
+
+          </SheetMenu>
+          {/*this.state.sheets*/}
+        </div>
         <div className="newsFeed">
           <CardLineGraph
             title = "Heartrate"

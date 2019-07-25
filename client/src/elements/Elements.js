@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import './Elements.css';
 
@@ -43,18 +44,51 @@ class Checkbox extends React.Component {
 
 class Slider extends React.Component{
 
+  constructor(props){
+    super(props);
+    switch (props.sliderType){
+      case "panel":
+        var sliderClass = "element--slider--panel"
+        //this.state.sliderConClass = "element--slider__con--panel"
+        var sliderValClass = "element--slider__val--panel"
+        break;
+      case "peaks":
+        var sliderClass = "element--slider--peaks"
+        //this.state.sliderConClass = "element--slider__con--peaks"
+        var sliderValClass = "element--slider__val--peaks"
+        break;
+      default:
+    }
+    this.state = {
+      sliderClass: sliderClass,
+      sliderValClass: sliderValClass,
+    }
+  }
+
   onSliderChanged(event){
-    this.props.handleChange(event.target.value,this.props.idx);
+    switch(this.props.sliderType){
+      case "panel":
+        this.props.handleChange(event.target.value, this.props.idx);
+        break;
+      case "peaks":
+        this.props.handleChange(event.target.value, this.props.sliderId);
+        console.log(event.target.value);
+        break;
+      default:
+    }
   }
 
   render(){
     let radius = this.props.intervalRadius;
     let center = this.props.intervalCenter;
+    let sliderClasses = classNames('element--slider', this.state.sliderClass)
+    //let sliderConClasses = classNames('element--slider__con', this.state.sliderClass)
+    let sliderValClasses = classNames('element--slider__val', this.state.sliderValClass)
     return(
-      <div className="element--slider__con">
-        <div className="element--slider__val">{this.props.pos}</div>
+      <div className='sliderConClasses'>
+        <div className={sliderValClasses}>{this.props.pos}</div>
         <input type="range"
-        className="element--slider"
+        className={sliderClasses}
         min={center - radius}
         max={center + radius}
         value={this.props.pos}
