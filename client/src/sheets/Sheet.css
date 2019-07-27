@@ -22,10 +22,8 @@
   height: 700px;
   width: 100%;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.0));
-  /*rgba(255, 193, 109, 1.0);*/
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  /*background-image: linear-gradient(to right, rgba(255, 193, 109, 0.9), rgba(255, 193, 109, 0.0));*/
 }
 
 .sheet__concept__header {
@@ -37,7 +35,9 @@
   position: relative;
   height:1px;
   width: 100%;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 1.0), rgba(255, 255, 255, 1.0), rgba(0, 0, 0, 0.0));
+  /*background-image: linear-gradient(to right, rgba(0, 0, 0, 1.0), rgba(255, 255, 255, 1.0), rgba(0, 0, 0, 0.0));*/
+  background: black;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.0)), color-stop(50%, white));
   display:inline-block;
   border:none;
   margin-bottom: 20px;

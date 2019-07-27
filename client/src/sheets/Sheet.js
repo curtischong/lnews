@@ -43,6 +43,17 @@ class SheetMenu extends React.Component{
     }
   }
 
+  handleLearningsChange(val){
+    this.setState({
+      "newLearnings": val
+    });
+  }
+  handleOldSkillsChange(val){
+    this.setState({
+      "oldSkills": val
+    });
+  }
+
   render(){
     return (
     < div className="sheet__con" >
@@ -71,6 +82,9 @@ class SheetMenu extends React.Component{
           pos={this.state.timeSpentLearning}
           sliderId='timeSpentLearning'
           sliderType='peaks'/>
+          <TextBox handleChange={this.handleLearningsChange.bind(this)} textBoxType='peaks' placeholder="What was new?" value={this.state.newLearnings}/>
+          <br></br>
+          <TextBox handleChange={this.handleOldSkillsChange.bind(this)} textBoxType='peaks' placeholder="Some old skills you built upon?" value={this.state.oldSkills}/>
       </div>
     </div>
     )

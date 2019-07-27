@@ -99,12 +99,22 @@ class Slider extends React.Component{
 }
 
 class TextBox extends React.Component {
+
   constructor(props){
     super(props);
-
+    switch (props.textBoxType){
+      case "panel":
+        var textBoxClass = "element--textbox--panel"
+        break;
+      case "peaks":
+        var textBoxClass = "element--textbox--peaks"
+        break;
+      default:
+    }
+    console.log(props)
     this.state = {
-      textboxVal: this.props.message,
-      textboxHeight: 17
+      textBoxClass: textBoxClass,
+      textboxHeight: 17,
     }
   }
 
@@ -116,11 +126,12 @@ class TextBox extends React.Component {
   }
 
   render(){
+    let textBoxClasses = classNames('element--textbox', this.state.textBoxClass)
     return(
-        <textarea className = "element--textbox"
+        <textarea className = {textBoxClasses}
         style = {{ height: this.state.textboxHeight + "px" }}
         value={this.props.value}
-        placeholder = "Comments?"
+        placeholder = {this.props.placeholder}
         onChange={this.onTextBoxChanged.bind(this)}/>
     )
   }

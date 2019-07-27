@@ -197,7 +197,7 @@ class PanelEval extends React.Component{
         <div className="panel__content">
           {allFields}
         </div>
-        < TextBox handleChange={this.handleMsgChange.bind(this)} value={this.state.message}/>
+        < TextBox handleChange={this.handleMsgChange.bind(this)} textBoxType="panel" placeholder="Comments?" value={this.state.message}/>
         <button className="panel__btn--submit" style={{marginLeft: 35}} onClick={this.onSubmit.bind(this)}>{this.props.submitMsg}</button>
       </div>
      )
