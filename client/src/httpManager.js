@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {getLizzieServerIP, getLNewsServerIP} from './config'
+import {getLizzieServerIP} from './config'
+import toTimeZone from 'util'
 
 const headers = {
   'Content-Type': 'application/json',
@@ -48,9 +49,28 @@ const dismissPanel = (timePlaced) => {
   });
 };
 
+const submitLpeaksSkill = (skill) => {
+  let payload = {
+    "concept" : skill.concept,
+    "newLearnings" : skill.newLearnings,
+    "oldSkills" : skill.oldSkills,
+    "percentNew" : skill.percentNew,
+    "timeLearnedUnixt" : toTimeZone(skill.timeLearned),
+    "timeLearnedTs" : parseInt(parseInt(skill.timeLearned.getTime())),
+    "timeSpentLearning" : skill.timeSpentLearning
+  }
+
+  console.log(payload)
+  axios.post(getLizzieServerIP() + "upload_skill", JSON.stringify(payload))
+  .then(res => {
+    console.log(res);
+  });
+}
+
 export {
   getCards,
   getSheets,
   sendEmotionEval,
-  dismissPanel
+  dismissPanel,
+  submitLpeaksSkill
 }

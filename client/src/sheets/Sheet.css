@@ -1,6 +1,5 @@
 .img--sheet__menu{
   float: left;
-  display: inline-block;
   vertical-align: left;
   height: 50px;
   width: 50px;
@@ -29,6 +28,8 @@
 .sheet__concept__header {
   position: relative;
   color: white;
+  text-align: left;
+  margin-left: 20px;
 }
 
 .sheet__line {
@@ -41,4 +42,20 @@
   display:inline-block;
   border:none;
   margin-bottom: 20px;
+}
+
+.sheet__btn--submit{
+  color: white;
+  border: 1px solid white;
+  background-color: transparent;
+  border-radius: 3px;
+  opacity: 0.8;
+  transition: opacity .2s;
+  padding-left: 35%;
+  padding-right: 35%;
+}
+
+.sheet__btn--submit:hover{
+  border: 1px solid white;
+  opacity: 1.0;
 }

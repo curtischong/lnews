@@ -46,16 +46,18 @@ class Slider extends React.Component{
 
   constructor(props){
     super(props);
+    let sliderClass= ""
+    let sliderValClass = ""
     switch (props.sliderType){
       case "panel":
-        var sliderClass = "element--slider--panel"
+        sliderClass = "element--slider--panel"
         //this.state.sliderConClass = "element--slider__con--panel"
-        var sliderValClass = "element--slider__val--panel"
+        sliderValClass = "element--slider__val--panel"
         break;
       case "peaks":
-        var sliderClass = "element--slider--peaks"
+        sliderClass = "element--slider--peaks"
         //this.state.sliderConClass = "element--slider__con--peaks"
-        var sliderValClass = "element--slider__val--peaks"
+        sliderValClass = "element--slider__val--peaks"
         break;
       default:
     }
@@ -72,7 +74,6 @@ class Slider extends React.Component{
         break;
       case "peaks":
         this.props.handleChange(event.target.value, this.props.sliderId);
-        console.log(event.target.value);
         break;
       default:
     }
@@ -102,12 +103,13 @@ class TextBox extends React.Component {
 
   constructor(props){
     super(props);
+    let textBoxClass = ""
     switch (props.textBoxType){
       case "panel":
-        var textBoxClass = "element--textbox--panel"
+        textBoxClass = "element--textbox--panel"
         break;
       case "peaks":
-        var textBoxClass = "element--textbox--peaks"
+        textBoxClass = "element--textbox--peaks"
         break;
       default:
     }
@@ -137,8 +139,47 @@ class TextBox extends React.Component {
   }
 }
 
+class TextField extends React.Component {
+
+  constructor(props){
+    super(props);
+    let textFieldClass = ""
+    switch (props.textFieldType){
+      case "panel":
+        textFieldClass = "element--textfield--panel"
+        break;
+      case "peaks":
+        textFieldClass = "element--textfield--peaks"
+        break;
+      default:
+    }
+    this.state = {
+      textBoxClass: textFieldClass,
+      textboxHeight: 17,
+    }
+  }
+
+  onTextFieldchanged(event){
+    this.props.handleChange(event.target.value);
+    this.setState({
+      textboxHeight: event.target.scrollHeight - 4
+    })
+  }
+
+  render(){
+    let textFieldClasses = classNames('element--textfield', this.state.textBoxClass)
+    return(
+        <input type="text" className = {textFieldClasses}
+        value={this.props.value}
+        placeholder = {this.props.placeholder}
+        onChange={this.onTextFieldchanged.bind(this)}/>
+    )
+  }
+}
+
 export{
   Checkbox,
   Slider,
-  TextBox
+  TextBox,
+  TextField
 }
