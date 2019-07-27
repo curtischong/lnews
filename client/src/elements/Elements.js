@@ -85,7 +85,7 @@ class Slider extends React.Component{
     //let sliderConClasses = classNames('element--slider__con', this.state.sliderClass)
     let sliderValClasses = classNames('element--slider__val', this.state.sliderValClass)
     return(
-      <div className='sliderConClasses'>
+      <div className='element--slider__con'>
         <div className={sliderValClasses}>{this.props.pos}</div>
         <input type="range"
         className={sliderClasses}
