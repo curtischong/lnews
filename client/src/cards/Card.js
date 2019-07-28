@@ -2,7 +2,95 @@ import React from 'react';
 
 import './Card.css';
 import { Line,Pie } from "react-chartjs-2";
+import * as httpManager from '../httpManager';
+import config, {} from '../config';
 
+
+const REFRESH_GET_CARD_AMOUNT = 5
+class NewsFeed extends React.Component{
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      cardAmount: 5,
+      cardOffset: 0,
+      cards: [],
+      cchartData: {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [
+          {
+            label: "My First dataset",
+            backgroundColor: "rgb(255, 99, 132)",
+            borderColor: "rgb(255, 99, 132)",
+            data: [0, 10, 5, 2, 20, 30, 45]
+          }
+        ]
+      },
+    }
+    this.fetchCards();
+  }
+
+
+  fetchCards(){
+    if(!config.fetchCards){
+      return;
+    }
+    httpManager.getCards(this.state.cardAmount, this.state.cardOffset)
+    .then(res => {
+      this.setState({
+        cardOffset: this.state.cardOffset + REFRESH_GET_CARD_AMOUNT,
+      })
+      let cards = res.data;
+      var newCards = this.state.cards.slice();
+      console.log(cards)
+
+      for(let i = 0; i < cards.length;i++){
+        let card = JSON.parse(cards[i].card);
+        // let cardTime = parseInt(cards[i].unixt);
+        if(card.cardType === "text"){
+          newCards.push(
+            <CardText
+            title={card.title}
+            desc={card.desc}
+            img ={card.img}
+            key={i + "food"}
+            />
+          )
+        }else if(card.cardType === "textLink"){
+          newCards.push(
+            <CardTextLink
+            title={card.title}
+            desc={card.desc}
+            img ={card.img}
+            link={card.link}
+            linkDisplay={card.linkDisplay}
+            key={i + "link"}
+            />
+          )
+        }
+      }
+
+
+      this.setState({
+        cards: newCards
+      })
+
+    });
+  }
+
+  render() {
+    return(
+      <div className="newsFeed">
+        <CardLineGraph
+          title = "Heartrate"
+          chartData = {this.state.cchartData}
+          key="sd"/>
+        {this.state.cards}
+      </div>
+    )
+  }
+}
 
 class CardLineGraph extends React.Component{
   render () {
@@ -103,9 +191,5 @@ class NoCards extends React.Component{
 };
 
 export {
-  CardLineGraph,
-  CardPieGraph,
-  CardText,
-  CardTextLink,
-  NoCards
+  NewsFeed
 }

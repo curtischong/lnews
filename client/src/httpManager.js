@@ -6,24 +6,31 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
-// The reason why I had so much trouble with get is because there is no standard to send data through a body via a get request
 // Post does allow data to be sent in the body
-const getCards = (getCardsAndPanelsObj) => {
-  //return axios.get(getLizzieServerIP() + "get_cards_and_panels", {params: getCardsAndPanelsObj}, {headers: headers}) // This returns a promise!
-  /*return axios({
-    method: 'get',
-    url: getLizzieServerIP() + "get_cards_and_panels",
-    data: JSON.stringify(getCardsAndPanelsObj),
-    headers: headers
-  }) // This returns a promise!*/
 
-  return axios.get(getLizzieServerIP() + "get_cards_and_panels",{
-    params : getCardsAndPanelsObj,
+const getCards = (cardAmount, cardOffset) => {
+    let getCardsObj = {
+      "cardAmount": cardAmount,
+      "cardOffset": cardOffset
+    }
+  return axios.get(getLizzieServerIP() + "get_news_cards",{
+    params : getCardsObj,
     headers: headers
   });
-};
+}
 
-const getSheets = () => {
+const getPanels = (panelAmount, panelOffset) => {
+  let getPanelsObj = {
+    "panelAmount": panelAmount,
+    "panelOffset": panelOffset
+  }
+  return axios.get(getLizzieServerIP() + "get_news_panels",{
+    params : getPanelsObj,
+    headers: headers
+  });
+}
+
+const getLpeaksSkills= () => {
   return axios.get(getLizzieServerIP() + "get_sheets",{
     headers: headers
   });
@@ -69,7 +76,8 @@ const submitLpeaksSkill = (skill) => {
 
 export {
   getCards,
-  getSheets,
+  getPanels,
+  getLpeaksSkills,
   sendEmotionEval,
   dismissPanel,
   submitLpeaksSkill

@@ -1,13 +1,100 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import * as httpManager from '../httpManager';
+import config, {} from '../config';
 
 import {
   Checkbox,
   Slider,
   TextBox
 } from '../elements/Elements'
+
 import './Panel.css';
-import * as httpManager from '../httpManager';
-//import config from 'config'
+
+const REFRESH_GET_PANEL_AMOUNT = 5
+
+class PanelFeed extends React.Component{
+  constructor(props){
+    super(props);
+
+    this.state = {
+      panelOffset: 0,
+      panelAmount: 5,
+      panels: [],
+    }
+
+    this.fetchPanels();
+  }
+
+  fetchPanels(){
+    if(!config.fetchPanels){
+      return;
+    }
+    httpManager.getPanels(this.state.panelAmount, this.state.panelOffset)
+    .then(res => {
+      this.setState({
+        panelOffset: this.state.panelOffset + REFRESH_GET_PANEL_AMOUNT,
+      })
+      let panels = res.data;
+      var newPanels = this.state.panels.slice();
+      console.log(panels)
+
+      for(let i = 0; i < panels.length;i++){
+        console.log(panels[i].panel)
+        let panel = JSON.parse(panels[i].panel);
+        let panelTime = parseInt(panels[i].unixt, 10);
+        if(panel.panelType === "panelCheckbox"){
+          newPanels.push(
+            <PanelCheckbox
+            timePlaced={panelTime}
+            title={panel.title}
+            img ={panel.img}
+            key={i + "checkbox"}
+            listItems={panel.listItems}
+            />
+          )
+        }else if(panel.panelType === "panelConfirm"){
+          newPanels.push(
+            <PanelConfirm
+            timePlaced={panelTime}
+            confirmMsg={panel.confirmMsg}
+            title={panel.title}
+            img ={panel.img}
+            key={i + "confirm"}
+            listItems={panel.listItems}
+            />
+          )
+        } else if (panel.panelType === "panelEval"){
+          newPanels.push(
+            <PanelEval
+            timePlaced={panelTime}
+              title = {panel.title}
+              img ={panel.img}
+              evalFields = {panel.evalFields}
+              submitMsg = {panel.submitMsg}
+            key={i + "eval"}
+            />
+          )
+        }
+      }
+
+      this.setState({
+        panels: newPanels
+      })
+    });
+  }
+
+  render(){
+    return(
+      <div className="panelFeed">
+        <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={700} transitionLeaveTimeout={700}>
+        {this.state.panels}
+        </ReactCSSTransitionGroup>
+      </div>
+    )
+  }
+}
+
 
 class PanelCheckbox extends React.Component{
 
@@ -205,7 +292,5 @@ class PanelEval extends React.Component{
 }
 
 export{
-  PanelCheckbox,
-  PanelEval,
-  PanelConfirm
+  PanelFeed
 }

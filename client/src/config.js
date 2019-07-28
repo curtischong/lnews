@@ -2,6 +2,7 @@
 const config = {
   "logV": 0,
   "fetchCards": true,
+  "fetchPanels": true,
   "isDev": true,
   "dev":{
     "serverIP": {

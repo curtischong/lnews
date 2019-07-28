@@ -23,6 +23,12 @@ class SheetMenu extends React.Component{
     }
   }
 
+  fetchSkills(){
+    httpManager.getLpeaksSkills()
+      .then(res => {
+    });
+  }
+
   handleConceptChange(val){
     this.setState({
       "concept": val
