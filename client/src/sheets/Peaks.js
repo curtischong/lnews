@@ -38,12 +38,12 @@ class SkillForm extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      concept: "",
-      newLearnings: "",
-      oldSkills: "",
-      percentNew: 0,
-      timeLearned: new Date(),
-      timeSpentLearning: 0,
+      concept: props.concept,
+      newLearnings: props.newLearnings,
+      oldSkills: props.oldSkills,
+      percentNew: props.percentNew,
+      timeLearned: props.timeLearned,
+      timeSpentLearning: props.timeSpentLearning,
     }
   }
   fetchSkills(){
@@ -137,7 +137,6 @@ class Peaks extends React.Component{
     super(props);
     this.state = {
       selectedPreview: -1,
-      skillPreviews: [],
       skills: [],
     }
     this.fetchSkills();
@@ -155,21 +154,18 @@ class Peaks extends React.Component{
   }
 
   fetchSkills(){
-    let newSkillPreviews = []
     let newSkills = []
     httpManager.getLpeaksSkills()
     .then(res =>{
       let skills = res.data;
-      for (let skill of skills) {
-        let newSkill = this.toSkillObj(skill);
-        newSkillPreviews.push(
-          <SkillPreview concept={newSkill.concept} timeLearned={newSkill.timeLearned}/>
-        )
+      for (let idx = 0; idx < skills.length; idx++) {
+        let newSkill = skills[idx];
+        let skill = this.toSkillObj(newSkill);
+        newSkills.push(skill)
       }
-      let selectedPreview = newSkillPreviews.length > 0 ? 0 : -1;
+      let selectedPreview = skills.length > 0 ? 0 : -1;
       this.setState({
         selectedPreview: selectedPreview,
-        skillPreviews: newSkillPreviews,
         skills: newSkills
       });
     });
@@ -177,7 +173,6 @@ class Peaks extends React.Component{
 
   addSkill(){
     console.log("added skill")
-    let newSkillPreviews = this.state.skillPreviews.slice();
     let newSkills = this.state.skills.slice();
     let newSkill = {
       concept: "",
@@ -187,23 +182,47 @@ class Peaks extends React.Component{
       timeLearned: moment(),
       timeSpentLearning: 0,
     }
-    newSkillPreviews.unshift(<SkillPreview concept={newSkill.concept} timeLearned={newSkill.timeLearned}/>);
     newSkills.unshift(newSkill);
     this.setState({
-      skillPreviews: newSkillPreviews,
       skills: newSkills,
       selectedPreview: 0
     })
   }
 
   render(){
+    let skillForm = "";
+    if(this.state.skills.length > 0){
+      let skillIdx = this.state.selectedPreview;
+      let curSkill = this.state.skills[skillIdx];
+      console.log(skillIdx)
+      console.log(this.state.skills);
+      skillForm = (
+        <SkillForm
+        concept={curSkill.concept}
+        newLearnings={curSkill.newLearnings}
+        oldSkills={curSkill.oldSkills}
+        percentNew={curSkill.percentNew}
+        timeLearned={curSkill.timeLearned}
+        timeSpentLearning={curSkill.timeSpentLearning}
+        />
+      )
+    }
+
+    let skillPreviews = [];
+    for(let idx = 0; idx < this.state.skills.length; idx++){
+      let skill = this.state.skills[idx];
+      skillPreviews.push(
+        <SkillPreview concept={skill.concept} timeLearned={skill.timeLearned} key={idx}/>
+      )
+    }
+
     return(
       <div className="peaksCon">
       <button onClick={this.addSkill.bind(this)}>New Skill</button>
         <div className="skillPreviewCon">
-          {this.state.skillPreviews}
+          {skillPreviews}
         </div>
-        <SkillForm/>
+        {skillForm}
       </div>
     )
   }
