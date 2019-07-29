@@ -37,10 +37,8 @@ class PanelFeed extends React.Component{
       })
       let panels = res.data;
       var newPanels = this.state.panels.slice();
-      console.log(panels)
 
       for(let i = 0; i < panels.length;i++){
-        console.log(panels[i].panel)
         let panel = JSON.parse(panels[i].panel);
         let panelTime = parseInt(panels[i].unixt, 10);
         if(panel.panelType === "panelCheckbox"){

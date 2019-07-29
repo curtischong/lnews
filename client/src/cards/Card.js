@@ -43,7 +43,6 @@ class NewsFeed extends React.Component{
       })
       let cards = res.data;
       var newCards = this.state.cards.slice();
-      console.log(cards)
 
       for(let i = 0; i < cards.length;i++){
         let card = JSON.parse(cards[i].card);
@@ -180,15 +179,16 @@ class CardCongratulations extends React.Component{
   }
 }*/
 
-class NoCards extends React.Component{
+/*
+class CardCaughtUp extends React.Component{
   render(){
     return(
       <div class="card card--noCards">
-        <p> Damn you scroll fast :) Live a good life! </p>
+        <p> You're all caught up :) </p>
       </div>
     )
   }
-};
+};*/
 
 export {
   NewsFeed

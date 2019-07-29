@@ -31,7 +31,7 @@ const getPanels = (panelAmount, panelOffset) => {
 }
 
 const getLpeaksSkills= () => {
-  return axios.get(getLizzieServerIP() + "get_sheets",{
+  return axios.get(getLizzieServerIP() + "get_peaks_skills",{
     headers: headers
   });
 };

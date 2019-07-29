@@ -113,7 +113,6 @@ class TextBox extends React.Component {
         break;
       default:
     }
-    console.log(props)
     this.state = {
       textBoxClass: textBoxClass,
       textboxHeight: 17,

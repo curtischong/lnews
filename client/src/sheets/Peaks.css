@@ -1,0 +1,32 @@
+.peaksCon{
+  position: relative;
+  top: 10px;
+}
+.skillPreviewCon{
+  position: relative;
+  height: 50px;
+  width: 100%;
+  border: 1px solid white;
+}
+
+.skillPreview{
+  float: left;
+  position: relative;
+  display:inline-block;
+  height: 40px;
+  width: 40px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow-y: scroll;
+  color: white;
+}
+
+.skillPreview__concept{
+  font-size: 10px;
+}
+
+.skillPreview__timeLearned{
+  font-size: 10px;
+}

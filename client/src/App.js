@@ -39,29 +39,6 @@ class App extends React.Component{
     console.log(`logV: ${config.logv}`)
   }
 
-  /*
-  fetchSheets(){
-    let peaksNewSkills = []
-    let peaksNewReviews = []
-
-
-    //httpManager.getSheets()
-    .then(res => {
-
-      peaksNewSkills.push(
-        <Sheet/>
-
-      )
-      this.setState({
-        "peaks": {
-          "skills": peaksNewSkills,
-          "reviews": peaksNewReviews
-        }
-      })
-    });
-
-  }*/
-
   componentDidMount(){
   }
 
