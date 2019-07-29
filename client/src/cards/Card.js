@@ -46,14 +46,14 @@ class NewsFeed extends React.Component{
 
       for(let i = 0; i < cards.length;i++){
         let card = JSON.parse(cards[i].card);
-        // let cardTime = parseInt(cards[i].unixt);
-        if(card.cardType === "text"){
+        let cardTime = parseInt(cards[i].unixt);
+        if(card.cardType === "text"){ // TODO: make these consistent with the panel types
           newCards.push(
             <CardText
             title={card.title}
             desc={card.desc}
             img ={card.img}
-            key={i + "food"}
+            key={cardTime + "_text"}
             />
           )
         }else if(card.cardType === "textLink"){
@@ -64,7 +64,7 @@ class NewsFeed extends React.Component{
             img ={card.img}
             link={card.link}
             linkDisplay={card.linkDisplay}
-            key={i + "link"}
+            key={cardTime + "_textLink"}
             />
           )
         }

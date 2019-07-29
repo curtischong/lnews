@@ -4,22 +4,34 @@
 }
 .skillPreviewCon{
   position: relative;
-  height: 50px;
-  width: 100%;
   border: 1px solid white; /*TODO: remove this after preview is finalized*/
+  height: 50px;
   overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  margin-top: 20px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  height: 0px;
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: transparent;
 }
 
 .skillPreview{
-  float: left;
   position: relative;
-  display:inline-block;
+  display: inline-block;
   height: 40px;
-  width: 40px;
+  width: 80px;
   border: 1px solid white;
   border-radius: 5px;
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 5px;
   color: white;
   cursor: pointer;
 }

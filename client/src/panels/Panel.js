@@ -47,7 +47,7 @@ class PanelFeed extends React.Component{
             timePlaced={panelTime}
             title={panel.title}
             img ={panel.img}
-            key={i + "checkbox"}
+            key={panelTime + "_panelCheckbox"}
             listItems={panel.listItems}
             />
           )
@@ -58,7 +58,7 @@ class PanelFeed extends React.Component{
             confirmMsg={panel.confirmMsg}
             title={panel.title}
             img ={panel.img}
-            key={i + "confirm"}
+            key={panelTime + "_panelConfirm"}
             listItems={panel.listItems}
             />
           )
@@ -70,7 +70,7 @@ class PanelFeed extends React.Component{
               img ={panel.img}
               evalFields = {panel.evalFields}
               submitMsg = {panel.submitMsg}
-            key={i + "eval"}
+            key={panelTime + "_panelEval"}
             />
           )
         }
@@ -166,7 +166,7 @@ class PanelConfirm extends React.Component{
     let confirmElements = [];
     for(let i = 0 ; i < this.props.listItems.length;i++){
       confirmElements.push(
-        <li className="panel__listItem" key={i + "panelConfirm"}>{this.props.listItems[i]}</li>
+        <li className="panel__listItem" key={this.props.timePlaced + "_" + i + "_panelConfirm"}>{this.props.listItems[i]}</li>
       );
     }
 
@@ -259,7 +259,7 @@ class PanelEval extends React.Component{
     for(let i = 0 ; i < this.props.evalFields.length;i++){
       let curField = this.props.evalFields[i];
       allFields.push(
-        <div className="panel--eval__cell" key={i + "panelEval"}>
+        <div className="panel--eval__cell" key={this.props.timePlaced + "_" + i + "_panelEval"}>
           <p className="panel__topic">{allTitles[i]}</p>
           <Slider
           handleChange={this.handleSliderChange.bind(this)}

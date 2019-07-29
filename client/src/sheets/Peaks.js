@@ -19,6 +19,7 @@ class SkillPreview extends React.Component{
       concept: props.concept,
       timeLearned: props.timeLearned
     }
+    console.log(props.timeLearned)
   }
 
   render(){
@@ -194,8 +195,6 @@ class Peaks extends React.Component{
     if(this.state.skills.length > 0){
       let skillIdx = this.state.selectedPreview;
       let curSkill = this.state.skills[skillIdx];
-      console.log(skillIdx)
-      console.log(this.state.skills);
       skillForm = (
         <SkillForm
         concept={curSkill.concept}
@@ -212,7 +211,7 @@ class Peaks extends React.Component{
     for(let idx = 0; idx < this.state.skills.length; idx++){
       let skill = this.state.skills[idx];
       skillPreviews.push(
-        <SkillPreview concept={skill.concept} timeLearned={skill.timeLearned} key={idx}/>
+        <SkillPreview concept={skill.concept} timeLearned={skill.timeLearned} key={skill.timeLearned.valueOf()}/>
       )
     }
 
