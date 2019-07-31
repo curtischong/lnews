@@ -9,7 +9,8 @@ import './Sheet.css';
 import './Peaks.css';
 
 import * as httpManager from '../httpManager';
-import {toPrettyDate} from '../util/Util';
+import {toPrettyDate} from '../Util';
+import classNames from 'classnames';
 import moment from 'moment'
 
 class SkillPreview extends React.Component{
@@ -22,10 +23,22 @@ class SkillPreview extends React.Component{
     console.log(props.timeLearned)
   }
 
+  onClick(){
+    this.props.onClickSkillPreview(this.props.idx);
+  }
+
   render(){
+    let skillClasses = ""
+    if(this.props.isSelected){
+      skillClasses = classNames('skillPreview', 'skillPreview--selectedSkill')
+    }else{
+      skillClasses = classNames('skillPreview')
+    }
+    let conceptTitle = this.state.concept == "" ? "New" : this.state.concept;
+
     return(
-      <div className='skillPreview'>
-        <p className='skillPreview__concept'>{this.state.concept}</p>
+      <div className={skillClasses} onClick={this.onClick.bind(this)}>
+        <p className='skillPreview__concept'>{conceptTitle}</p>
         <p className='skillPreview__timeLearned'>{this.state.timeLearned.format('YYYY-MM-DD')}</p>
       </div>
     )
@@ -93,6 +106,7 @@ class SkillForm extends React.Component{
   onSubmitSkill(){
     httpManager.submitLpeaksSkill(this.state)
   }
+
   render(){
     return(
       <div className="sheet--peaks_body">
@@ -128,6 +142,7 @@ class SkillForm extends React.Component{
         <TextBox handleChange={this.handleOldSkillsChange.bind(this)} textBoxType='peaks' placeholder="Some old skills you built upon?" value={this.state.oldSkills}/>
         <br></br>
         <button className="sheet__btn--submit" onClick={this.onSubmitSkill.bind(this)}>Upload</button>
+        <button className="sheet__btn--submit" onClick={this.props.deleteSkill}>Delete</button>
       </div>
     )
   }
@@ -189,13 +204,48 @@ class Peaks extends React.Component{
       selectedPreview: 0
     })
   }
+  deleteSkill(){
+    if (window.confirm('Are you sure you wish to delete this item?')){
+      console.log("delete");
+      let skills = this.state.skills.slice();
+      console.log(skills)
+      let newSkills = skills.splice(this.state.selectedPreview,1);
+      console.log(newSkills)
+      
+      this.setState({
+        skills: newSkills
+      });
+
+    }
+  }
+
+  onClickSkillPreview(idx){
+    this.setState({
+      selectedPreview: idx
+    });
+  }
+
 
   render(){
-    let skillForm = "";
-    if(this.state.skills.length > 0){
-      let skillIdx = this.state.selectedPreview;
-      let curSkill = this.state.skills[skillIdx];
-      skillForm = (
+    let skillPreviews = [];
+    for(let idx = 0; idx < this.state.skills.length; idx++){
+      let skill = this.state.skills[idx];
+      let isSelected = this.state.selectedPreview === idx
+      skillPreviews.push(
+        <SkillPreview concept={skill.concept} timeLearned={skill.timeLearned} key={skill.timeLearned.valueOf()} onClickSkillPreview={this.onClickSkillPreview.bind(this)} idx={idx} isSelected={isSelected}/>
+      )
+    }
+
+    let skillIdx = this.state.selectedPreview;
+    let curSkill = this.state.skills[skillIdx];
+    return(
+      <div className="peaksCon">
+      <button onClick={this.addSkill.bind(this)}>New Skill</button>
+        <div className="skillPreviewCon">
+          {skillPreviews}
+        </div>
+      {
+      this.state.skills.length > 0 && (
         <SkillForm
         concept={curSkill.concept}
         newLearnings={curSkill.newLearnings}
@@ -203,25 +253,11 @@ class Peaks extends React.Component{
         percentNew={curSkill.percentNew}
         timeLearned={curSkill.timeLearned}
         timeSpentLearning={curSkill.timeSpentLearning}
+        deleteSkill={this.deleteSkill.bind(this)}
         />
       )
     }
-
-    let skillPreviews = [];
-    for(let idx = 0; idx < this.state.skills.length; idx++){
-      let skill = this.state.skills[idx];
-      skillPreviews.push(
-        <SkillPreview concept={skill.concept} timeLearned={skill.timeLearned} key={skill.timeLearned.valueOf()}/>
-      )
-    }
-
-    return(
-      <div className="peaksCon">
-      <button onClick={this.addSkill.bind(this)}>New Skill</button>
-        <div className="skillPreviewCon">
-          {skillPreviews}
-        </div>
-        {skillForm}
+  }
       </div>
     )
   }

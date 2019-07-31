@@ -31,15 +31,23 @@
   border-radius: 5px;
   margin-left: 10px;
   margin-right: 10px;
-  margin-top: 5px;
   color: white;
   cursor: pointer;
+  margin-top: 5px;
+}
+
+.skillPreview--selectedSkill{
+  border-color: red;
+  color: red;
+  background: rgba(0, 0, 0, 0.4)
 }
 
 .skillPreview__concept{
   font-size: 10px;
+  margin: 0px;
 }
 
 .skillPreview__timeLearned{
   font-size: 10px;
+  margin: 0px;
 }

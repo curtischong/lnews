@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {getLizzieServerIP} from './config'
-import toTimeZone from 'util'
+import {toTimeZone} from './Util'
 
 const headers = {
   'Content-Type': 'application/json',
@@ -57,14 +57,15 @@ const dismissPanel = (timePlaced) => {
 };
 
 const submitLpeaksSkill = (skill) => {
+  console.log(skill.timeLearned.valueOf())
   let payload = {
     "concept" : skill.concept,
     "newLearnings" : skill.newLearnings,
     "oldSkills" : skill.oldSkills,
-    "percentNew" : skill.percentNew,
-    "timeLearnedUnixt" : toTimeZone(skill.timeLearned),
-    "timeLearnedTs" : parseInt(parseInt(skill.timeLearned.getTime())),
-    "timeSpentLearning" : skill.timeSpentLearning
+    "percentNew" : parseInt(skill.percentNew),
+    "timeLearnedUnixt" : skill.timeLearned.valueOf(),
+    "timeLearnedTs" : toTimeZone(skill.timeLearned),
+    "timeSpentLearning" : parseInt(skill.timeSpentLearning)
   }
 
   console.log(payload)

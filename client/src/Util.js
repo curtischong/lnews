@@ -1,8 +1,8 @@
 import moment from 'moment'
 
 function toTimeZone(time) {
-  console.log(time);
-  return moment.utc(time).local().format()//.toISOString()
+  let dateObj = moment.isMoment(time) ? time : moment.utc(time)
+  return dateObj.local().format()//.toISOString()
 }
 
 function toPrettyDate(time){
