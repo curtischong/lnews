@@ -57,6 +57,8 @@ const dismissPanel = (timePlaced) => {
 };
 
 const submitLpeaksSkill = (skill) => {
+  //TODO: for some reason all new dates made in the same session sends the same timestamp
+  // OK FOR SOME REASON I THINK IM'S USING THE SAME MOMENT OBJECT THAT'S WHY IT'S THE SAME TIME
   console.log(skill.timeLearned.valueOf())
   let payload = {
     "concept" : skill.concept,

@@ -20,7 +20,6 @@ class SkillPreview extends React.Component{
       concept: props.concept,
       timeLearned: props.timeLearned
     }
-    console.log(props.timeLearned)
   }
 
   onClick(){
@@ -52,12 +51,12 @@ class SkillForm extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      concept: props.concept,
-      newLearnings: props.newLearnings,
-      oldSkills: props.oldSkills,
-      percentNew: props.percentNew,
-      timeLearned: props.timeLearned,
-      timeSpentLearning: props.timeSpentLearning,
+      concept: this.props.concept,
+      newLearnings: this.props.newLearnings,
+      oldSkills: this.props.oldSkills,
+      percentNew: this.props.percentNew,
+      timeLearned: this.props.timeLearned,
+      timeSpentLearning: this.props.timeSpentLearning,
     }
   }
   fetchSkills(){
