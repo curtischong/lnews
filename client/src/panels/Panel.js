@@ -26,6 +26,14 @@ class PanelFeed extends React.Component{
     this.fetchPanels();
   }
 
+  panelDismissed(idx){
+    let panels = this.state.panels.slice();
+    panels.splice(idx, 1);
+    this.setState({
+      "panels": panels
+    })
+  }
+
   fetchPanels(){
     if(!config.fetchPanels){
       return;
@@ -44,33 +52,39 @@ class PanelFeed extends React.Component{
         if(panel.panelType === "panelCheckbox"){
           newPanels.push(
             <PanelCheckbox
+            idx = {i}
             timePlaced={panelTime}
             title={panel.title}
             img ={panel.img}
             key={panelTime + "_panelCheckbox"}
             listItems={panel.listItems}
+            onDismiss={this.panelDismissed.bind(this)}
             />
           )
         }else if(panel.panelType === "panelConfirm"){
           newPanels.push(
             <PanelConfirm
+            idx = {i}
             timePlaced={panelTime}
             confirmMsg={panel.confirmMsg}
             title={panel.title}
             img ={panel.img}
             key={panelTime + "_panelConfirm"}
             listItems={panel.listItems}
+            onDismiss={this.panelDismissed.bind(this)}
             />
           )
         } else if (panel.panelType === "panelEval"){
           newPanels.push(
             <PanelEval
+            idx = {i}
             timePlaced={panelTime}
-              title = {panel.title}
-              img ={panel.img}
-              evalFields = {panel.evalFields}
-              submitMsg = {panel.submitMsg}
+            title = {panel.title}
+            img ={panel.img}
+            evalFields = {panel.evalFields}
+            submitMsg = {panel.submitMsg}
             key={panelTime + "_panelEval"}
+            onDismiss={this.panelDismissed.bind(this)}
             />
           )
         }
@@ -126,6 +140,9 @@ class PanelCheckbox extends React.Component{
       checkCount: this.state.checkCount + 1,
     });
   }
+  onDismiss(){
+    this.props.onDismiss(this.props.idx)
+  }
   render () {
     let checkboxElements = [];
     for(let i = 0 ; i < this.props.listItems.length;i++){
@@ -150,6 +167,7 @@ class PanelCheckbox extends React.Component{
             {checkboxElements}
           </div>
         </div>
+        <button className="panel__btn--submit" style={{marginLeft: 35}} onClick={this.onDismiss.bind(this)}>Dismiss</button>
       </div>
     )
   }
@@ -160,6 +178,7 @@ class PanelConfirm extends React.Component{
   onSubmit(){
     console.log("panel confirm submitted");
     httpManager.dismissPanel(this.props.timePlaced);
+    this.props.onDismiss(this.props.idx)
   }
 
   render () {
@@ -238,6 +257,7 @@ class PanelEval extends React.Component{
 
     httpManager.sendEmotionEval(evalObj);
     httpManager.dismissPanel(this.props.time);
+    this.props.onDismiss(this.props.idx)
   }
 
   render() {
