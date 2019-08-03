@@ -35,9 +35,16 @@ class SkillPreview extends React.Component{
     }
     let conceptTitle = this.state.concept == "" ? "New" : this.state.concept;
 
+    let conceptClasses= ""
+    if(!this.props.uploaded){
+      conceptClasses = classNames('skillPreview__concept', 'skillPreview--unuploaded')
+    }else{
+      conceptClasses = classNames('skillPreview__concept')
+    }
+
     return(
       <div className={skillClasses} onClick={this.onClick.bind(this)}>
-        <p className='skillPreview__concept'>{conceptTitle}</p>
+        <p className={conceptClasses}> {conceptTitle}</p>
         <p className='skillPreview__timeLearned'>{this.state.timeLearned.format('YYYY-MM-DD')}</p>
       </div>
     )
@@ -68,6 +75,8 @@ class SkillForm extends React.Component{
   handleConceptChange(val){
     this.setState({
       "concept": val
+    }, () => {
+      this.props.updateSkill(this.state)
     });
   }
 
@@ -77,6 +86,8 @@ class SkillForm extends React.Component{
         if(val%5 === 0){
           this.setState({
             "percentNew": val
+          }, () => {
+            this.props.updateSkill(this.state)
           })
         }
         break;
@@ -84,6 +95,8 @@ class SkillForm extends React.Component{
         if(val%5 === 0){
           this.setState({
             "timeSpentLearning": val
+          }, ()=> {
+            this.props.updateSkill(this.state)
           })
         }
         break;
@@ -94,16 +107,16 @@ class SkillForm extends React.Component{
   handleLearningsChange(val){
     this.setState({
       "newLearnings": val
+    }, () => {
+      this.props.updateSkill(this.state)
     });
   }
   handleOldSkillsChange(val){
     this.setState({
       "oldSkills": val
+    }, () => {
+      this.props.updateSkill(this.state)
     });
-  }
-
-  onSubmitSkill(){
-    httpManager.submitLpeaksSkill(this.state)
   }
 
   render(){
@@ -140,7 +153,7 @@ class SkillForm extends React.Component{
         <br></br>
         <TextBox handleChange={this.handleOldSkillsChange.bind(this)} textBoxType='peaks' placeholder="Some old skills you built upon?" value={this.state.oldSkills}/>
         <br></br>
-        <button className="sheet__btn--submit" onClick={this.onSubmitSkill.bind(this)}>Upload</button>
+        <button className="sheet__btn--submit" onClick={this.props.submitSkill}>Upload</button>
         <button className="sheet__btn--submit" onClick={this.props.deleteSkill}>Delete</button>
       </div>
     )
@@ -153,6 +166,7 @@ class Peaks extends React.Component{
     this.state = {
       selectedPreview: -1,
       skills: [],
+      uploaded: []
     }
     this.fetchSkills();
   }
@@ -163,7 +177,7 @@ class Peaks extends React.Component{
       newLearnings: skill.new_learnings,
       oldSkills: skill.old_skills,
       percentNew: parseInt(skill.percent_new),
-      timeLearned: moment(skill.time_learned_ts),
+      timeLearned: moment(parseInt(skill.time_learned_unixt)),
       timeSpentLearning: parseInt(skill.time_spent_learning),
     }
   }
@@ -181,26 +195,29 @@ class Peaks extends React.Component{
       let selectedPreview = skills.length > 0 ? 0 : -1;
       this.setState({
         selectedPreview: selectedPreview,
-        skills: newSkills
+        skills: newSkills,
+        uploaded: new Array(skills.length).fill(true)
       });
     });
   }
 
   addSkill(){
-    console.log("added skill")
     let newSkills = this.state.skills.slice();
     let newSkill = {
       concept: "",
       newLearnings: "",
       oldSkills: "",
       percentNew: 0,
-      timeLearned: moment(),
+      timeLearned: new moment(),
       timeSpentLearning: 0,
     }
+    let newUploaded = this.state.uploaded.slice();
+    newUploaded.unshift(false);
     newSkills.unshift(newSkill);
     this.setState({
       skills: newSkills,
-      selectedPreview: 0
+      selectedPreview: 0,
+      uploaded: newUploaded
     })
   }
   deleteSkill(){
@@ -210,7 +227,6 @@ class Peaks extends React.Component{
       console.log(skills)
       let newSkills = skills.splice(this.state.selectedPreview,1);
       console.log(newSkills)
-      
       this.setState({
         skills: newSkills
       });
@@ -224,6 +240,26 @@ class Peaks extends React.Component{
     });
   }
 
+  updateSkill(skill){
+    let skills = this.state.skills.slice();
+    skills[this.state.selectedPreview] = skill;
+    let uploadedSkills = this.state.uploaded.slice();
+    uploadedSkills[this.state.selectedPreview] = false;
+    this.setState({
+      skills: skills,
+      uploaded: uploadedSkills
+    })
+  }
+
+  onSubmitSkill(){
+    httpManager.submitLpeaksSkill(this.state.skills[this.state.selectedPreview])
+    let uploadedSkills = this.state.uploaded.slice();
+    uploadedSkills[this.state.selectedPreview] = true;
+    this.setState({
+      uploaded: uploadedSkills
+    })
+  }
+
 
   render(){
     let skillPreviews = [];
@@ -231,9 +267,17 @@ class Peaks extends React.Component{
       let skill = this.state.skills[idx];
       let isSelected = this.state.selectedPreview === idx
       skillPreviews.push(
-        <SkillPreview concept={skill.concept} timeLearned={skill.timeLearned} key={skill.timeLearned.valueOf()} onClickSkillPreview={this.onClickSkillPreview.bind(this)} idx={idx} isSelected={isSelected}/>
+        <SkillPreview
+        concept={skill.concept}
+        timeLearned={skill.timeLearned}
+        key={skill.timeLearned.valueOf() + skill.concept + this.state.uploaded[idx]}
+        onClickSkillPreview={this.onClickSkillPreview.bind(this)}
+        idx={idx}
+        isSelected={isSelected}
+        uploaded={this.state.uploaded[idx]}/>
       )
     }
+    console.log(this.state.skills)
 
     let skillIdx = this.state.selectedPreview;
     let curSkill = this.state.skills[skillIdx];
@@ -243,9 +287,9 @@ class Peaks extends React.Component{
         <div className="skillPreviewCon">
           {skillPreviews}
         </div>
-      {
-      this.state.skills.length > 0 && (
+      {this.state.skills.length > 0 && (
         <SkillForm
+        key={skillIdx + curSkill.timeLearned.valueOf()}
         concept={curSkill.concept}
         newLearnings={curSkill.newLearnings}
         oldSkills={curSkill.oldSkills}
@@ -253,10 +297,10 @@ class Peaks extends React.Component{
         timeLearned={curSkill.timeLearned}
         timeSpentLearning={curSkill.timeSpentLearning}
         deleteSkill={this.deleteSkill.bind(this)}
+        updateSkill={this.updateSkill.bind(this)}
+        submitSkill={this.onSubmitSkill.bind(this)}
         />
-      )
-    }
-  }
+      )}
       </div>
     )
   }

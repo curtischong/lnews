@@ -4,7 +4,7 @@
 }
 .skillPreviewCon{
   position: relative;
-  border: 1px solid white; /*TODO: remove this after preview is finalized*/
+  /*border: 1px solid white; /*TODO: remove this after preview is finalized*/
   height: 50px;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -39,6 +39,12 @@
 .skillPreview--selectedSkill{
   border-color: red;
   color: red;
+  background: rgba(0, 0, 0, 0.4)
+}
+
+.skillPreview--unuploaded{
+  border-color: red;
+  color: orange;
   background: rgba(0, 0, 0, 0.4)
 }
 
