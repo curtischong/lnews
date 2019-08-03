@@ -222,15 +222,24 @@ class Peaks extends React.Component{
   }
   deleteSkill(){
     if (window.confirm('Are you sure you wish to delete this item?')){
-      console.log("delete");
+      httpManager.deletePeaksSkill(this.state.skills[this.state.selectedPreview].timeLearned.valueOf());
       let skills = this.state.skills.slice();
-      console.log(skills)
-      let newSkills = skills.splice(this.state.selectedPreview,1);
-      console.log(newSkills)
-      this.setState({
-        skills: newSkills
-      });
+      skills.splice(this.state.selectedPreview, 1);
+      let uploaded = this.state.uploaded.slice();
+      uploaded.splice(this.state.selectedPreview, 1);
 
+      let newPreview;
+      if(uploaded.length === 0){
+        newPreview = -1
+      }else{
+        newPreview = 0
+      }
+
+      this.setState({
+        skills: skills,
+        uploaded: uploaded,
+        selectedPreview: newPreview
+      });
     }
   }
 

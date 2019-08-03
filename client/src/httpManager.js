@@ -30,11 +30,21 @@ const getPanels = (panelAmount, panelOffset) => {
   });
 }
 
-const getLpeaksSkills= () => {
+const getLpeaksSkills = () => {
   return axios.get(getLizzieServerIP() + "get_peaks_skills",{
     headers: headers
   });
 };
+
+const deletePeaksSkill = (time_learned_unixt) => {
+  let payload = {
+    "timeLearnedUnixt": time_learned_unixt
+  }
+  axios.post(getLizzieServerIP() + "delete_peaks_skill", JSON.stringify(payload))
+  .then(res => {
+    console.log(res);
+  });
+}
 
 const sendEmotionEval = (evalObj) => {
   axios.post(getLizzieServerIP() + "upload_emotion_evaluation", JSON.stringify(evalObj))
@@ -82,5 +92,6 @@ export {
   getLpeaksSkills,
   sendEmotionEval,
   dismissPanel,
-  submitLpeaksSkill
+  submitLpeaksSkill,
+  deletePeaksSkill
 }
