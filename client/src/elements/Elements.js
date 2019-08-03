@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import './Elements.css';
 
@@ -115,25 +116,24 @@ class TextBox extends React.Component {
     }
     this.state = {
       textBoxClass: textBoxClass,
-      textboxHeight: 17,
+      value: this.props.value
     }
   }
 
   onTextBoxChanged(event){
     this.props.handleChange(event.target.value);
-    this.setState({
-      textboxHeight: event.target.scrollHeight - 4
-    })
+    this.setState({value: event.target.value})
   }
 
   render(){
     let textBoxClasses = classNames('element--textbox', this.state.textBoxClass)
     return(
-        <textarea className = {textBoxClasses}
-        style = {{ height: this.state.textboxHeight + "px" }}
-        value={this.props.value}
+        <TextareaAutosize className = {textBoxClasses}
         placeholder = {this.props.placeholder}
-        onChange={this.onTextBoxChanged.bind(this)}/>
+        useCacheForDOMMeasurements
+        value={this.state.value}
+        onChange={this.onTextBoxChanged.bind(this)}
+        />
     )
   }
 }
@@ -158,11 +158,9 @@ class TextField extends React.Component {
     }
   }
 
+
   onTextFieldchanged(event){
     this.props.handleChange(event.target.value);
-    this.setState({
-      textboxHeight: event.target.scrollHeight - 4
-    })
   }
 
   render(){
