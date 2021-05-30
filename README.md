@@ -23,3 +23,6 @@ Here are some of my favourite planned "cards":
  - Congratulation cards for when I use new words that I've learned in FB messenger
 
 Ultimately I want Lizzie News to be built to a point where it'll impact the decisions I make in my life. For example, if going to calc raises my cortisol levels by 20% I might stay back and catch up on work instead. This also means that LNews will open on every new chrome tab I create, so that it never becomes out of mind.
+
+### Images Credit
+I'm pretty sure that most of the icons were found on https://www.flaticon.com/. I'm sorry but I think I lost all of the individual links to each icon a while ago so I cannot give credit to the authors of the images used here.
